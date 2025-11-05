@@ -1,0 +1,112 @@
+{
+  "1": {
+    "name": "Bulbasaur",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "powerof4",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Winking",
+        "type": "grass",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "blocksmash+",
+        "flags": []
+      }
+    }
+  },
+  "2": {
+    "name": "Ivysaur",
+    "type": "grass",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "megaboost",
+    "flags": []
+  },
+  "3": {
+    "name": "Venusaur",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "sleepcharm",
+    "flags": ["mega"]
+  },
+  "4": {
+    "name": "Charmander",
+    "type": "fire",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "powerof4",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Winking",
+        "type": "fire",
+        "base_atk": 50,
+        "max_atk": 70,
+        "skill": "blocksmash",
+        "flags": []
+      }
+    }
+  },
+  "5": {
+    "name": "Charmeleon",
+    "type": "fire",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "megaboost",
+    "flags": []
+  },
+  "6": {
+    "name": "Charizard",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "burn+",
+    "flags": ["mega"]
+  },
+  "7": {
+    "name": "Squirtle",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "powerof4",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Winking",
+        "type": "water",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "blocksmash+",
+        "flags": []
+      }
+    }
+  },
+  "8": {
+    "name": "Wartortle",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "megaboost",
+    "flags": []
+  },
+  "9": {
+    "name": "Blastoise",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap++",
+    "flags": ["mega"]
+  },
+  "10": {
+    "name": "Caterpie",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "quirky+",
+    "flags": []
+  }
+}
