@@ -206,15 +206,12 @@ func animate_match_pop():
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_BACK)
 	
-	# Primero crecer un poco
 	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
 	
-	# Luego encogerse hasta desaparecer
 	tween.set_ease(Tween.EASE_IN)
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(self, "scale", Vector2(0.0, 0.0), 0.2)
 	
-	# Fade out al mismo tiempo
 	tween.parallel().tween_property(self, "modulate:a", 0.0, 0.2)
 
 func animate_land_squish():
@@ -223,12 +220,14 @@ func animate_land_squish():
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	
-	# Aplastar (más ancho, menos alto)
 	tween.tween_property(self, "scale", Vector2(1.15, 0.85), 0.1)
-	# Volver a la normalidad con rebote
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
 
 func _gui_input(event):
+	var board = get_parent()
+	if ("is_processing_matches") in board and (board.is_processing_matches or not board.can_move):
+		return
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			drag_offset = get_global_mouse_position() - global_position
@@ -242,7 +241,6 @@ func _gui_input(event):
 			get_viewport().set_input_as_handled()
 
 	elif event is InputEventMouseMotion:
-		# no mover aquí, se mueve en _process
 		pass
 func _process(delta):
 	if dragging and can_move:

@@ -236,6 +236,16 @@ func check_hover_piece(dragged_piece):
 			last_hovered_piece = null
 
 func _on_piece_released(piece):
+	if not dragging or selected_piece != piece:
+		return
+	
+	can_move = false
+	is_processing_matches = true
+	
+	await process_matches()
+	is_processing_matches = false
+	can_move = true
+	
 	if not is_instance_valid(piece):
 		return
 	if piece.get_parent() == null:
@@ -300,14 +310,12 @@ func _on_piece_released(piece):
 		await return_piece_to_start(piece)
 	else:
 		moves_left -= 1
-		is_processing_matches = true
-		if dim_non_matching:
-			can_move = false
-		else:
-			can_move = true
+		can_move = false
+		is_processing_matches = true	
 		await process_matches()
 		is_processing_matches = false
 		can_move = true
+	
 		update_ui()
 		check_game_over()
 
