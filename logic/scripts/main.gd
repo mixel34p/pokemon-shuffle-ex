@@ -58,6 +58,7 @@ var grid = []
 var selected_piece = null
 var dragging = false
 var drag_start_pos = Vector2.ZERO
+var drag_offset = Vector2.ZERO  # Offset entre el cursor y el centro de la pieza
 var drag_start_grid_x = 0
 var drag_start_grid_y = 0
 var moves_left = 15
@@ -188,6 +189,8 @@ func _on_piece_pressed(piece):
 	drag_start_grid_y = piece.grid_y
 	piece.z_index = 10
 
+	drag_offset = get_global_mouse_position() - piece.global_position
+
 func _on_piece_dragged(piece, motion):
 	if not dragging or selected_piece != piece:
 		return
@@ -196,9 +199,9 @@ func _on_piece_dragged(piece, motion):
 	if piece.get_parent() == null:
 		return
 	
-	piece.position += motion
-	
-	# Detectar sobre qué pieza está el cursor
+	var mouse_pos = get_global_mouse_position()
+	piece.global_position = mouse_pos - drag_offset
+
 	check_hover_piece(piece)
 
 func check_hover_piece(dragged_piece):

@@ -16,11 +16,15 @@ var pokemon_id: int
 var pokemon_form: int
 var pokemon_level: int
 
-var is_being_dragged: bool = false
-var hover_tween: Tween
 var sprite_node: TextureRect
 var idle_timer: Timer
 var is_in_idle_animation: bool = false
+var is_being_dragged := false
+var dragging := false
+var can_move := false
+var drag_offset := Vector2.ZERO
+var hover_tween : Tween
+var smooth_follow_speed := 20.00
 
 func setup(x: int, y: int, piece_type: int, tile_size_val: int, poke_id: int, level: int, form: int = 0):
 	grid_x = x
@@ -82,40 +86,42 @@ func show_placeholder():
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(label)
 
-func animate_pick_up():
-	"""Animación al coger la pieza: escala aumenta y se hace transparente"""
+func animate_pick_up() -> void:
 	is_being_dragged = true
 	stop_idle_animation()
-	
+
 	if hover_tween:
 		hover_tween.kill()
-	
+
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	
-	# Aumentar escala a 1.3x
 	tween.tween_property(self, "scale", Vector2(1.3, 1.3), 0.15)
-	# Hacer transparente (alpha 0.7)
 	tween.tween_property(self, "modulate:a", 0.7, 0.15)
 
-func animate_release():
-	"""Animación al soltar la pieza: vuelve a escala y opacidad normal"""
+	await tween.finished
+	can_move = true
+	dragging = true
+	piece_pressed.emit(self)
+
+
+func animate_release() -> void:
 	is_being_dragged = false
-	
+
+	if hover_tween:
+		hover_tween.kill()
+
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_BACK)
-	
-	# Volver a escala normal
-	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
-	# Volver a opacidad normal
-	tween.tween_property(self, "modulate:a", 1.0, 0.2)
-	
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "scale", Vector2.ONE, 0.15)
+	tween.tween_property(self, "modulate:a", 1.0, 0.15)
+
 	await tween.finished
 	resume_idle_animation()
+
 
 func animate_hover_over():
 	"""Animación cuando la pieza arrastrada pasa sobre esta"""
@@ -223,17 +229,24 @@ func animate_land_squish():
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
 
 func _gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				animate_pick_up()
-				piece_pressed.emit(self)
-			else:
-				animate_release()
-				piece_released.emit(self)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			drag_offset = get_global_mouse_position() - global_position
+			can_move = false
+			animate_pick_up()
 			get_viewport().set_input_as_handled()
-	
+		else:
+			animate_release()
+			dragging = false
+			piece_released.emit(self)
+			get_viewport().set_input_as_handled()
+
 	elif event is InputEventMouseMotion:
-		if event.button_mask & MOUSE_BUTTON_MASK_LEFT:
-			piece_dragged.emit(self, event.relative)
-			get_viewport().set_input_as_handled()
+		# no mover aquí, se mueve en _process
+		pass
+func _process(delta):
+	if dragging and can_move:
+		var mouse_pos = get_global_mouse_position()
+		global_position = global_position.lerp(mouse_pos - drag_offset, delta * smooth_follow_speed)
+		piece_dragged.emit(self, Vector2.ZERO) # 🔥 emite para hover
+		
