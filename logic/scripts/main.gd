@@ -435,8 +435,6 @@ func mark_matches_sequentially(matches: Array):
 	
 	for i in range(matches.size()):
 		var piece = matches[i]
-		
-		# Animación de parpadeo antes del pop
 		var tween = create_tween()
 		tween.set_loops(2)
 		tween.tween_property(piece, "modulate:a", 0.3, 0.1)
@@ -504,18 +502,42 @@ func drop_and_fill_pieces():
 			var start_y = -missing + i
 			piece.position = grid_container.position + Vector2(x * TILE_SIZE, start_y * TILE_SIZE)
 			
+			# Animación de entrada: empezar con escala 0
+			piece.scale = Vector2(0.0, 0.0)
+			
+			# Establecer el color correcto desde el inicio
 			if dim_non_matching:
-				piece.modulate = Color(0.4, 0.4, 0.4, 1.0)
+				piece.modulate = Color(0.4, 0.4, 0.4, 0.0)  # Empieza transparente pero con el dim
+			else:
+				piece.modulate = Color(1.0, 1.0, 1.0, 0.0)  # Empieza transparente normal
 
 			piece.piece_pressed.connect(_on_piece_pressed)
 			piece.piece_dragged.connect(_on_piece_dragged)
 			piece.piece_released.connect(_on_piece_released)
 			add_child(piece)
+			
+			# Pop in animation antes de caer
+			var pop_tween = create_tween()
+			pop_tween.set_ease(Tween.EASE_OUT)
+			pop_tween.set_trans(Tween.TRANS_BACK)
+			pop_tween.set_parallel(true)
+			pop_tween.tween_property(piece, "scale", Vector2(1.0, 1.0), 0.2)
+			# Animar solo el alpha, manteniendo el color RGB
+			if dim_non_matching:
+				pop_tween.tween_property(piece, "modulate:a", 1.0, 0.2)
+			else:
+				pop_tween.tween_property(piece, "modulate:a", 1.0, 0.2)
 
 			column_top_down.append(piece)
 
 		for i in range(existing_bottom_up.size() - 1, -1, -1):
 			column_top_down.append(existing_bottom_up[i])
+		
+		# Aplicar dim a piezas existentes si es necesario
+		if dim_non_matching:
+			for piece in existing_bottom_up:
+				if piece.modulate.a > 0.5:  # Solo si no está ya atenuado
+					piece.modulate = Color(0.4, 0.4, 0.4, 1.0)
 
 		for target_y in range(GRID_HEIGHT):
 			var piece = column_top_down[target_y]
@@ -527,18 +549,35 @@ func drop_and_fill_pieces():
 			var distance = target_y - current_y_pos
 			
 			if distance > 0:
-				var speed = 400.0
+				var speed = 600.0  # Aumentado de 400.0 a 600.0 para que caigan más rápido
 				var pixels_to_fall = distance * TILE_SIZE
 				var fall_time = pixels_to_fall / speed
 				
-				var tween = create_tween()
-				tween.tween_property(
+				# Animación de caída con stretch (estirar mientras cae)
+				var fall_tween = create_tween()
+				fall_tween.set_parallel(true)
+				
+				# Movimiento de caída
+				fall_tween.tween_property(
 					piece, "position:y",
 					grid_container.position.y + (target_y * TILE_SIZE),
 					fall_time
 				).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 				
-				all_tweens.append(tween)
+				# Estirar mientras cae (más alto, menos ancho)
+				fall_tween.tween_property(
+					piece, "scale",
+					Vector2(0.9, 1.2),
+					fall_time * 0.5
+				).set_ease(Tween.EASE_OUT)
+				
+				# Callback para hacer squish al aterrizar
+				fall_tween.chain().tween_callback(piece.animate_land_squish)
+				
+				all_tweens.append(fall_tween)
+			else:
+				# Si no cae, solo aparecer
+				piece.scale = Vector2(1.0, 1.0)
 
 	if all_tweens.size() > 0:
 		await all_tweens[-1].finished
