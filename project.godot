@@ -15,10 +15,14 @@ run/main_scene="uid://l832qbrss87b"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Audiomanager="*res://logic/scripts/globals/audiomanager.gd"
+
 [display]
 
 window/size/viewport_width=720
-window/size/viewport_height=1280
+window/size/viewport_height=1520
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/handheld/orientation=1

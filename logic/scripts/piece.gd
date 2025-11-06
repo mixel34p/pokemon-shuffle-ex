@@ -25,6 +25,8 @@ var can_move := false
 var drag_offset := Vector2.ZERO
 var hover_tween : Tween
 var smooth_follow_speed := 20.00
+var click_position := Vector2.ZERO
+var has_moved := false
 
 func setup(x: int, y: int, piece_type: int, tile_size_val: int, poke_id: int, level: int, form: int = 0):
 	grid_x = x
@@ -87,6 +89,7 @@ func show_placeholder():
 	add_child(label)
 
 func animate_pick_up() -> void:
+	Audiomanager.play_sfx("grab_pokemon")
 	is_being_dragged = true
 	stop_idle_animation()
 
@@ -107,10 +110,12 @@ func animate_pick_up() -> void:
 
 
 func animate_release() -> void:
+	
 	is_being_dragged = false
 
 	if hover_tween:
 		hover_tween.kill()
+	
 
 	var tween = create_tween()
 	tween.set_parallel(true)
@@ -230,21 +235,52 @@ func _gui_input(event):
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			print("Se ha pulsado.")
+			if is_being_dragged == true or dragging == true:
+				return
+			print("Se ha dejado pasar ya que: is_being_dragged = ", str(is_being_dragged)," y dragging =", str(dragging))
 			drag_offset = get_global_mouse_position() - global_position
+			click_position = get_global_mouse_position()
+			has_moved = false
 			can_move = false
 			animate_pick_up()
 			get_viewport().set_input_as_handled()
 		else:
-			animate_release()
-			dragging = false
-			piece_released.emit(self)
-			get_viewport().set_input_as_handled()
+			# Si estábamos arrastrando
+			if dragging:
+				# Si NO se movió significativamente, cancelar
+				if not has_moved:
+					print("Clic sin arrastrar - volviendo a posición original")
+					animate_release()
+					dragging = false
+					can_move = false
+					is_being_dragged = false
+					# Volver a la posición sin emitir released
+					get_viewport().set_input_as_handled()
+				else:
+					# Sí hubo arrastre real
+					animate_release()
+					dragging = false
+					can_move = false
+					piece_released.emit(self)
+					get_viewport().set_input_as_handled()
 
 	elif event is InputEventMouseMotion:
 		pass
+
 func _process(delta):
+	var board = get_parent()
+	if dragging and !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and board.is_processing_matches == false:
+		animate_release()
+		dragging = false
+		return
+	
 	if dragging and can_move:
 		var mouse_pos = get_global_mouse_position()
+		
+		# Detectar si se ha movido significativamente (más de 10 píxeles)
+		if not has_moved and click_position.distance_to(mouse_pos) > 10:
+			has_moved = true
+		
 		global_position = global_position.lerp(mouse_pos - drag_offset, delta * smooth_follow_speed)
 		piece_dragged.emit(self, Vector2.ZERO) # 🔥 emite para hover
-		

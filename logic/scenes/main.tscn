@@ -1,13 +1,71 @@
-[gd_scene load_steps=3 format=3 uid="uid://l832qbrss87b"]
+[gd_scene load_steps=6 format=3 uid="uid://l832qbrss87b"]
 
 [ext_resource type="Script" uid="uid://citi8g2dkukqi" path="res://logic/scripts/main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://b5x1tahb8bsnx" path="res://assets/sprites/pokemon/icons/442.png" id="2_fdsdf"]
+[ext_resource type="Texture2D" uid="uid://c7a3x2blqwx7t" path="res://assets/sprites/backgrounds/battle/puertoblanco.png" id="2_m06js"]
+[ext_resource type="AudioStream" uid="uid://cibjntwpfs5gp" path="res://audio/bgm/21-normal-battle.ogg" id="3_kibsj"]
+[ext_resource type="Texture2D" uid="uid://sfkngs5rjkwv" path="res://assets/sprites/ui/pokemon_grid.png" id="3_o13te"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
 
+[node name="BG" type="TextureRect" parent="."]
+offset_right = 718.0
+offset_bottom = 718.0
+texture = ExtResource("2_m06js")
+expand_mode = 1
+
 [node name="GridContainer" type="Node2D" parent="."]
-position = Vector2(29, 528)
+position = Vector2(2, 730)
+
+[node name="Grids" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -33.0
+offset_top = 50.000004
+offset_right = 7.0
+offset_bottom = 90.0
+scale = Vector2(1.08, 1.08)
+
+[node name="TextureRect" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 28.000002
+offset_top = 618.0
+offset_right = 306.0
+offset_bottom = 896.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+
+[node name="TextureRect3" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 28.000002
+offset_top = 951.00006
+offset_right = 306.0
+offset_bottom = 1229.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+flip_v = true
+
+[node name="TextureRect2" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 618.0
+offset_right = 639.0
+offset_bottom = 896.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 951.0
+offset_right = 639.0
+offset_bottom = 1229.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+flip_h = true
+flip_v = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -28,12 +86,17 @@ theme_override_font_sizes/font_size = 24
 text = "HP Enemigo: 100/100"
 
 [node name="EnemySprite" type="TextureRect" parent="UI"]
-texture_filter = 1
-offset_left = 253.0
-offset_top = 138.0
-offset_right = 470.0
-offset_bottom = 363.0
+offset_left = 252.0
+offset_top = 230.0
+offset_right = 469.0
+offset_bottom = 455.0
 texture = ExtResource("2_fdsdf")
 
 [node name="Combo" type="Marker2D" parent="."]
 position = Vector2(696, 113)
+
+[node name="Other" type="Node" parent="."]
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="Other"]
+stream = ExtResource("3_kibsj")
+autoplay = true

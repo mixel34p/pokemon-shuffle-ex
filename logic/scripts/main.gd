@@ -3,7 +3,7 @@ extends Node2D
 
 const GRID_WIDTH = 6
 const GRID_HEIGHT = 6
-const TILE_SIZE = 110
+const TILE_SIZE = 118
 
 # Opciones de gameplay
 @export var require_match_to_count = true
@@ -17,14 +17,14 @@ const SPRITES_PATH = "res://assets/sprites/pokemon/icons/"
 var team = [
 	{"id": 744, "level": 5},      # Bulbasaur
 	{"id": 887, "level": 7},      # Charmander
-	{"id": 7, "level": 6},      # Squirtle
-	{"id": 25, "level": 8}      # Pikachu
+	{"id": 676, "level": 6},      # Squirtle
+	{"id": 543, "level": 8}      # Pikachu
 ]
 
 # Enemigo actual (por ID)
 var foe = {
 	"id": 9,  # Rattata
-	"hp": 1000
+	"hp": 9000000
 }
 
 # Datos del enemigo cargados del JSON
@@ -72,7 +72,7 @@ var last_hovered_piece = null
 @onready var grid_container = $GridContainer
 @onready var moves_label = $UI/MovesLabel
 @onready var hp_label = $UI/HPLabel
-
+@onready var enemy_sprite = $UI/EnemySprite
 func _ready():
 	load_pokemon_data()
 	load_foe_data()
@@ -192,13 +192,16 @@ func _on_piece_pressed(piece):
 	drag_offset = get_global_mouse_position() - piece.global_position
 
 func _on_piece_dragged(piece, motion):
+	
 	if not dragging or selected_piece != piece:
 		return
 	if not is_instance_valid(piece):
 		return
 	if piece.get_parent() == null:
 		return
-	
+	if dragging and !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and is_processing_matches == false:
+		_on_piece_released(piece)
+		return
 	var mouse_pos = get_global_mouse_position()
 	piece.global_position = mouse_pos - drag_offset
 
@@ -242,15 +245,13 @@ func _on_piece_released(piece):
 	can_move = false
 	is_processing_matches = true
 	
-	await process_matches()
-	is_processing_matches = false
-	can_move = true
-	
 	if not is_instance_valid(piece):
+		can_move = true
+		is_processing_matches = false
 		return
 	if piece.get_parent() == null:
-		return
-	if not dragging:
+		can_move = true
+		is_processing_matches = false
 		return
 	
 	# Resetear hover
@@ -288,7 +289,6 @@ func _on_piece_released(piece):
 			var tween2 = create_tween()
 			tween2.tween_property(other_piece, "position", 
 				grid_container.position + Vector2(drag_start_grid_x * TILE_SIZE, drag_start_grid_y * TILE_SIZE), 0.2)
-			
 			await tween1.finished
 		else:
 			piece.grid_x = drag_start_grid_x
@@ -297,21 +297,24 @@ func _on_piece_released(piece):
 			var tween = create_tween()
 			tween.tween_property(piece, "position", drag_start_pos, 0.2)
 			await tween.finished
+			
 	else:
 		var tween = create_tween()
 		tween.tween_property(piece, "position", 
 			grid_container.position + Vector2(drag_start_grid_x * TILE_SIZE, drag_start_grid_y * TILE_SIZE), 0.2)
 		await tween.finished
-	
+		
 	var matches = find_all_matches()
 	
 	if require_match_to_count and matches.is_empty():
+		Audiomanager.play_sfx("release_pokemon")
 		print("¡No hay combos! Movimiento no válido")
 		await return_piece_to_start(piece)
+		can_move = true
+		is_processing_matches = false
 	else:
+		Audiomanager.play_sfx("attack")
 		moves_left -= 1
-		can_move = false
-		is_processing_matches = true	
 		await process_matches()
 		is_processing_matches = false
 		can_move = true
@@ -353,26 +356,36 @@ func process_matches():
 	var total_damage = 0
 	var combo_count = 0
 	var first_match = true
-	
+
 	while true:
 		var matches = find_all_matches()
+		
 		if matches.is_empty():
 			break
 		
 		combo_count += 1
-		
+
+		if combo_count == 1:
+			pass
+		else:
+			Audiomanager.play_sfx("combo_" + str(clamp(combo_count - 1, 1, 20)))
+
 		if combo_count > 1:
-			await get_tree().create_timer(0.15).timeout
+			# 🔥 Pequeño retraso entre combos para que se note la cadena
+			await get_tree().create_timer(0.2).timeout
 		
+		# 💡 Atenuar piezas no coincidentes solo la primera vez
 		if dim_non_matching and first_match:
 			dim_all_pieces()
 			first_match = false
 		
+		# Brillo momentáneo antes de eliminar
 		for piece in matches:
 			piece.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		
 		await mark_matches_sequentially(matches)
 		
+		# 🧮 Calcular daño de este combo
 		var damage = calculate_damage(matches, combo_count)
 		total_damage += damage
 		
@@ -380,23 +393,31 @@ func process_matches():
 		
 		await get_tree().create_timer(0.25).timeout
 		
+		# 💬 Mostrar texto de combo progresivo
 		if combo_count > 1:
 			show_combo_text(combo_count, damage)
 		
+		# ❌ Eliminar piezas coincidentes
 		for piece in matches:
 			grid[piece.grid_y][piece.grid_x] = null
 			piece.queue_free()
 		
 		await get_tree().create_timer(0.1).timeout
 		
+		# ⬇️ Caer y rellenar nuevas piezas
 		await drop_and_fill_pieces()
-	
+		
+	# 🌈 Restaurar color y aplicar daño final
 	if dim_non_matching:
 		restore_all_colors()
 	
 	if total_damage > 0:
 		deal_damage(total_damage)
 		show_damage_text(total_damage)
+	
+	# 🔔 Mostrar mensaje final de combo tipo Pokémon Shuffle
+	if combo_count > 1:
+		show_final_combo_message(combo_count)
 
 func find_all_matches() -> Array:
 	var all_matched_pieces = {}
@@ -460,7 +481,7 @@ func mark_matches_sequentially(matches: Array):
 
 func calculate_damage(matches: Array, combo: int) -> int:
 	var total_damage = 0
-	
+	Audiomanager.play_sfx("damage")
 	for piece in matches:
 		var pokemon_data = team[piece.type]
 		var poke_info = get_pokemon_info(pokemon_data["id"])
@@ -562,7 +583,7 @@ func drop_and_fill_pieces():
 			if distance > 0:
 				var speed = 600.0  # Aumentado de 400.0 a 600.0 para que caigan más rápido
 				var pixels_to_fall = distance * TILE_SIZE
-				var fall_time = pixels_to_fall / speed
+				var fall_time = min(pixels_to_fall / speed, 0.3)
 				
 				# Animación de caída con stretch (estirar mientras cae)
 				var fall_tween = create_tween()
@@ -640,32 +661,34 @@ func show_match_damage(matches: Array, damage: int):
 
 func show_combo_text(combo: int, damage: int):
 	var combo_text = Label.new()
-	combo_text.text = "COMBO x" + str(combo) + "!"
-	combo_text.add_theme_font_size_override("font_size", 42)
-	combo_text.modulate = Color(1, 0.8, 0, 1)
-	combo_text.position = Vector2(250, 300)
+	combo_text.text = "¡COMBO x" + str(combo) + "!"
+	combo_text.add_theme_font_size_override("font_size", 36 + combo * 2) # más grande cada combo
+	combo_text.modulate = Color(1, 0.9 - (combo * 0.05), 0, 1) # más rojizo según combo
+	combo_text.position = Vector2(250, 320 - combo * 5)
+	combo_text.scale = Vector2(0.8, 0.8)
 	add_child(combo_text)
 	
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(combo_text, "position:y", 250, 0.6)
 	tween.tween_property(combo_text, "scale", Vector2(1.3, 1.3), 0.2)
-	tween.chain().tween_property(combo_text, "scale", Vector2(1.0, 1.0), 0.2)
-	tween.tween_property(combo_text, "modulate:a", 0.0, 0.6).set_delay(0.3)
+	tween.chain().tween_property(combo_text, "scale", Vector2(1.0, 1.0), 0.3)
+	tween.tween_property(combo_text, "position:y", combo_text.position.y - 30, 0.6)
+	tween.tween_property(combo_text, "modulate:a", 0.0, 0.6).set_delay(0.2)
 	
 	await tween.finished
 	combo_text.queue_free()
 	
+	# 🔢 Texto de daño adicional
 	var damage_text = Label.new()
 	damage_text.text = "+" + str(damage) + " daño"
 	damage_text.add_theme_font_size_override("font_size", 28)
 	damage_text.modulate = Color(1, 1, 0.5, 1)
-	damage_text.position = Vector2(270, 340)
+	damage_text.position = Vector2(270, 350)
 	add_child(damage_text)
 	
 	var tween2 = create_tween()
 	tween2.set_parallel(true)
-	tween2.tween_property(damage_text, "position:y", 290, 0.6)
+	tween2.tween_property(damage_text, "position:y", damage_text.position.y - 40, 0.6)
 	tween2.tween_property(damage_text, "modulate:a", 0.0, 0.6).set_delay(0.2)
 	
 	await tween2.finished
@@ -703,3 +726,45 @@ func check_game_over():
 		print("¡Derrota!")
 		await get_tree().create_timer(1.0).timeout
 		get_tree().reload_current_scene()
+
+
+func show_final_combo_message(combo_count: int):
+	var message := ""
+	var sound_name := ""
+	
+	match combo_count:
+		1,2:
+			pass
+		3,4:
+			message = "¡Genial!"
+			sound_name = "combo_end_1"
+		5,6,7,8,9:
+			message = "¡Fantástico!"
+			sound_name = "combo_end_2"
+		10,11,12,13,14,15,16,17,18,19:
+			message = "¡Increíble!"
+			sound_name = "combo_end_3"
+		_:
+			message = "¡Asombroso!"
+			sound_name = "combo_end_4"
+	
+	Audiomanager.play_sfx(sound_name)
+	
+	var label = Label.new()
+	label.text = message
+	label.add_theme_font_size_override("font_size", 48 + combo_count * 2)
+	label.modulate = Color(1, 1, 0.8, 1)
+	label.position = Vector2(200, 250)
+	label.scale = Vector2(0.7, 0.7)
+	add_child(label)
+	
+	# 🌈 Tween para hacerlo más impactante
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(label, "scale", Vector2(1.2, 1.2), 0.3)
+	tween.chain().tween_property(label, "scale", Vector2(1.0, 1.0), 0.2)
+	tween.tween_property(label, "position:y", label.position.y - 40, 0.8)
+	tween.tween_property(label, "modulate:a", 0.0, 0.8).set_delay(0.4)
+	
+	await tween.finished
+	label.queue_free()
