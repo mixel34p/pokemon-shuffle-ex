@@ -1,9 +1,9 @@
-# Main.gd - Escena principal del juego
+# Main.gd - Escena principal del juego con animaciones
 extends Node2D
 
 const GRID_WIDTH = 6
 const GRID_HEIGHT = 6
-const TILE_SIZE = 64
+const TILE_SIZE = 110
 
 # Opciones de gameplay
 @export var require_match_to_count = true
@@ -15,8 +15,8 @@ const SPRITES_PATH = "res://assets/sprites/pokemon/icons/"
 
 # Equipo del jugador (EXACTAMENTE 4 Pokémon por ID)
 var team = [
-	{"id": 1, "level": 5},      # Bulbasaur
-	{"id": 4, "level": 7},      # Charmander
+	{"id": 744, "level": 5},      # Bulbasaur
+	{"id": 887, "level": 7},      # Charmander
 	{"id": 7, "level": 6},      # Squirtle
 	{"id": 25, "level": 8}      # Pikachu
 ]
@@ -65,6 +65,9 @@ var moves_left = 15
 var can_move = true
 var is_processing_matches = false
 
+# Para el sistema de hover
+var last_hovered_piece = null
+
 @onready var grid_container = $GridContainer
 @onready var moves_label = $UI/MovesLabel
 @onready var hp_label = $UI/HPLabel
@@ -85,7 +88,6 @@ func load_pokemon_data():
 		
 		if parse_result == OK:
 			var data = json.get_data()
-			# El JSON ahora es un diccionario con IDs como claves
 			pokemon_database = data
 		file.close()
 	else:
@@ -106,7 +108,7 @@ func setup_grid():
 func generate_initial_board():
 	for y in range(GRID_HEIGHT):
 		for x in range(GRID_WIDTH):
-			var piece_type = randi() % 4  # Solo 4 tipos (tamaño del equipo)
+			var piece_type = randi() % 4
 			while check_would_match(x, y, piece_type):
 				piece_type = randi() % 4
 			
@@ -142,16 +144,13 @@ func get_pokemon_info(pokemon_id: int, form_id: int = 0) -> Dictionary:
 	if pokemon_database.has(id_str):
 		var poke_data = pokemon_database[id_str]
 		
-		# Si es una forma alternativa
 		if form_id > 0:
 			var form_str = str(form_id)
 			if poke_data.has("forms") and poke_data["forms"].has(form_str):
 				return poke_data["forms"][form_str]
 		
-		# Forma base
 		return poke_data
 	
-	# Si no se encuentra, devolver datos por defecto
 	return {
 		"name": "Unknown",
 		"type": "normal",
@@ -161,7 +160,6 @@ func get_pokemon_info(pokemon_id: int, form_id: int = 0) -> Dictionary:
 	}
 
 func calculate_attack_stat(base_atk: int, max_atk: int, level: int) -> int:
-	# Fórmula: ataque crece linealmente desde base_atk (nivel 1) hasta max_atk (nivel 10)
 	var max_level = 10
 	var atk_per_level = float(max_atk - base_atk) / (max_level - 1)
 	var current_atk = base_atk + int(atk_per_level * (level - 1))
@@ -171,7 +169,7 @@ func get_type_effectiveness(attacker_type: String, defender_type: String) -> flo
 	if type_chart.has(attacker_type):
 		if type_chart[attacker_type].has(defender_type):
 			return type_chart[attacker_type][defender_type]
-	return 1.0  # Neutral
+	return 1.0
 
 func _on_piece_pressed(piece):
 	if not is_instance_valid(piece):
@@ -199,6 +197,40 @@ func _on_piece_dragged(piece, motion):
 		return
 	
 	piece.position += motion
+	
+	# Detectar sobre qué pieza está el cursor
+	check_hover_piece(piece)
+
+func check_hover_piece(dragged_piece):
+	"""Detecta si la pieza arrastrada está sobre otra pieza y activa animación"""
+	var local_pos = dragged_piece.position - grid_container.position
+	var hover_x = int(round(local_pos.x / TILE_SIZE))
+	var hover_y = int(round(local_pos.y / TILE_SIZE))
+	
+	# Verificar límites
+	if hover_x < 0 or hover_x >= GRID_WIDTH or hover_y < 0 or hover_y >= GRID_HEIGHT:
+		if last_hovered_piece != null and is_instance_valid(last_hovered_piece):
+			last_hovered_piece.animate_hover_exit()
+			last_hovered_piece = null
+		return
+	
+	var hovered_piece = grid[hover_y][hover_x]
+	
+	# Si pasamos sobre una pieza diferente
+	if hovered_piece != null and hovered_piece != dragged_piece and is_instance_valid(hovered_piece):
+		if hovered_piece != last_hovered_piece:
+			# Salir de la pieza anterior
+			if last_hovered_piece != null and is_instance_valid(last_hovered_piece):
+				last_hovered_piece.animate_hover_exit()
+			
+			# Entrar en la nueva pieza
+			hovered_piece.animate_hover_over()
+			last_hovered_piece = hovered_piece
+	elif hovered_piece == null or hovered_piece == dragged_piece:
+		# No hay pieza o es la misma que arrastramos
+		if last_hovered_piece != null and is_instance_valid(last_hovered_piece):
+			last_hovered_piece.animate_hover_exit()
+			last_hovered_piece = null
 
 func _on_piece_released(piece):
 	if not is_instance_valid(piece):
@@ -207,6 +239,12 @@ func _on_piece_released(piece):
 		return
 	if not dragging:
 		return
+	
+	# Resetear hover
+	if last_hovered_piece != null and is_instance_valid(last_hovered_piece):
+		last_hovered_piece.animate_hover_exit()
+		last_hovered_piece = null
+	
 	dragging = false
 	selected_piece = null
 	piece.z_index = 0
@@ -397,6 +435,8 @@ func mark_matches_sequentially(matches: Array):
 	
 	for i in range(matches.size()):
 		var piece = matches[i]
+		
+		# Animación de parpadeo antes del pop
 		var tween = create_tween()
 		tween.set_loops(2)
 		tween.tween_property(piece, "modulate:a", 0.3, 0.1)
@@ -404,23 +444,24 @@ func mark_matches_sequentially(matches: Array):
 		
 		if i < matches.size() - 1:
 			await get_tree().create_timer(0.05).timeout
+	
+	# Después del parpadeo, hacer el pop animation en todas
+	for piece in matches:
+		piece.animate_match_pop()
 
 func calculate_damage(matches: Array, combo: int) -> int:
 	var total_damage = 0
 	
-	# Calcular daño por cada pieza en el match
 	for piece in matches:
 		var pokemon_data = team[piece.type]
 		var poke_info = get_pokemon_info(pokemon_data["id"])
 		
-		# Calcular ataque del Pokémon según su nivel
 		var attack = calculate_attack_stat(
 			poke_info["base_atk"],
 			poke_info["max_atk"],
 			pokemon_data["level"]
 		)
 		
-		# Obtener efectividad de tipo
 		var effectiveness = get_type_effectiveness(poke_info["type"], foe_data["type"])
 		print(poke_info["name"],poke_info["type"], foe_data["type"])
 		
@@ -432,11 +473,10 @@ func calculate_damage(matches: Array, combo: int) -> int:
 			print("Poco efectivo")
 		else:
 			print("No hay efectividad...")
-		# Daño base = ataque * efectividad
+		
 		var piece_damage = attack * effectiveness
 		total_damage += piece_damage
 	
-	# Multiplicador de combo
 	var combo_multiplier = 1.0 + (combo - 1) * 0.5
 	total_damage = int(total_damage * combo_multiplier)
 	
