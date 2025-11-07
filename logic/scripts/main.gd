@@ -14,17 +14,20 @@ const POKEMON_DATA_PATH = "res://logic/data/pokemon.json"
 const SPRITES_PATH = "res://assets/sprites/pokemon/icons/"
 
 # Equipo del jugador (EXACTAMENTE 4 Pokémon por ID)
+# Formato: ID_FORMA (ej: "503_1" = Pokémon 503, forma 1)
 var team = [
-	{"id": 744, "level": 5},      # Bulbasaur
-	{"id": 887, "level": 7},      # Charmander
-	{"id": 676, "level": 6},      # Squirtle
-	{"id": 543, "level": 8}      # Pikachu
+	{"id": "503_1", "level": 5},      # Bulbasaur forma 1
+	{"id": "899", "level": 7},        # Charmander
+	{"id": "852", "level": 6},        # Squirtle
+	{"id": "543", "level": 8}         # Pikachu
 ]
 
 # Enemigo actual (por ID)
 var foe = {
-	"id": 9,  # Rattata
-	"hp": 9000000
+	"id": "9",  # Rattata (puede ser "9" o "9_1" para formas)
+	"hp": 9000000,
+	"turns_for_interference": 3, # Turnos en los que lanza la interferencia 0 para no tener ataque.
+	"interference": "ice" # Interferencia que lanza
 }
 
 # Datos del enemigo cargados del JSON
@@ -73,6 +76,7 @@ var last_hovered_piece = null
 @onready var moves_label = $UI/MovesLabel
 @onready var hp_label = $UI/HPLabel
 @onready var enemy_sprite = $UI/EnemySprite
+
 func _ready():
 	load_pokemon_data()
 	load_foe_data()
@@ -93,6 +97,48 @@ func load_pokemon_data():
 		file.close()
 	else:
 		push_error("No se pudo cargar pokemon_data.json")
+
+func parse_pokemon_id(id_string: String) -> Dictionary:
+	"""
+	Parsea un ID tipo '503_1' y retorna {pokemon_id: 503, form_id: 1}
+	Si no tiene forma, retorna {pokemon_id: 503, form_id: 0}
+	"""
+	if "_" in id_string:
+		var parts = id_string.split("_")
+		return {
+			"pokemon_id": int(parts[0]),
+			"form_id": int(parts[1])
+		}
+	else:
+		return {
+			"pokemon_id": int(id_string),
+			"form_id": 0
+		}
+
+func get_pokemon_info(id_string: String) -> Dictionary:
+	var parsed = parse_pokemon_id(id_string)
+	var pokemon_id = parsed["pokemon_id"]
+	var form_id = parsed["form_id"]
+	
+	var id_str = str(pokemon_id)
+	
+	if pokemon_database.has(id_str):
+		var poke_data = pokemon_database[id_str]
+		
+		if form_id > 0:
+			var form_str = str(form_id)
+			if poke_data.has("forms") and poke_data["forms"].has(form_str):
+				return poke_data["forms"][form_str]
+		
+		return poke_data
+	
+	return {
+		"name": "Unknown",
+		"type": "normal",
+		"base_atk": 30,
+		"max_atk": 50,
+		"skill": "none"
+	}
 
 func load_foe_data():
 	foe_data = get_pokemon_info(foe["id"])
@@ -130,35 +176,16 @@ func check_would_match(x: int, y: int, type: int) -> bool:
 
 func create_piece(x: int, y: int, type: int):
 	var pokemon_data = team[type]
+	var parsed = parse_pokemon_id(pokemon_data["id"])
+	
 	var piece = PokemonPiece.new()
-	piece.setup(x, y, type, TILE_SIZE, pokemon_data["id"], pokemon_data["level"])
+	piece.setup(x, y, type, TILE_SIZE, parsed["pokemon_id"], pokemon_data["level"], parsed["form_id"])
 	piece.position = grid_container.position + Vector2(x * TILE_SIZE, y * TILE_SIZE)
 	piece.piece_pressed.connect(_on_piece_pressed)
 	piece.piece_dragged.connect(_on_piece_dragged)
 	piece.piece_released.connect(_on_piece_released)
 	add_child(piece)
 	grid[y][x] = piece
-
-func get_pokemon_info(pokemon_id: int, form_id: int = 0) -> Dictionary:
-	var id_str = str(pokemon_id)
-	
-	if pokemon_database.has(id_str):
-		var poke_data = pokemon_database[id_str]
-		
-		if form_id > 0:
-			var form_str = str(form_id)
-			if poke_data.has("forms") and poke_data["forms"].has(form_str):
-				return poke_data["forms"][form_str]
-		
-		return poke_data
-	
-	return {
-		"name": "Unknown",
-		"type": "normal",
-		"base_atk": 30,
-		"max_atk": 50,
-		"skill": "none"
-	}
 
 func calculate_attack_stat(base_atk: int, max_atk: int, level: int) -> int:
 	var max_level = 10
@@ -371,21 +398,17 @@ func process_matches():
 			Audiomanager.play_sfx("combo_" + str(clamp(combo_count - 1, 1, 20)))
 
 		if combo_count > 1:
-			# 🔥 Pequeño retraso entre combos para que se note la cadena
 			await get_tree().create_timer(0.2).timeout
 		
-		# 💡 Atenuar piezas no coincidentes solo la primera vez
 		if dim_non_matching and first_match:
 			dim_all_pieces()
 			first_match = false
 		
-		# Brillo momentáneo antes de eliminar
 		for piece in matches:
 			piece.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		
 		await mark_matches_sequentially(matches)
 		
-		# 🧮 Calcular daño de este combo
 		var damage = calculate_damage(matches, combo_count)
 		total_damage += damage
 		
@@ -393,21 +416,17 @@ func process_matches():
 		
 		await get_tree().create_timer(0.25).timeout
 		
-		# 💬 Mostrar texto de combo progresivo
 		if combo_count > 1:
 			show_combo_text(combo_count, damage)
 		
-		# ❌ Eliminar piezas coincidentes
 		for piece in matches:
 			grid[piece.grid_y][piece.grid_x] = null
 			piece.queue_free()
 		
 		await get_tree().create_timer(0.1).timeout
 		
-		# ⬇️ Caer y rellenar nuevas piezas
 		await drop_and_fill_pieces()
 		
-	# 🌈 Restaurar color y aplicar daño final
 	if dim_non_matching:
 		restore_all_colors()
 	
@@ -415,7 +434,6 @@ func process_matches():
 		deal_damage(total_damage)
 		show_damage_text(total_damage)
 	
-	# 🔔 Mostrar mensaje final de combo tipo Pokémon Shuffle
 	if combo_count > 1:
 		show_final_combo_message(combo_count)
 
@@ -475,7 +493,6 @@ func mark_matches_sequentially(matches: Array):
 		if i < matches.size() - 1:
 			await get_tree().create_timer(0.05).timeout
 	
-	# Después del parpadeo, hacer el pop animation en todas
 	for piece in matches:
 		piece.animate_match_pop()
 
@@ -493,7 +510,7 @@ func calculate_damage(matches: Array, combo: int) -> int:
 		)
 		
 		var effectiveness = get_type_effectiveness(poke_info["type"], foe_data["type"])
-		print(poke_info["name"],poke_info["type"], foe_data["type"])
+		print(poke_info["name"], " ", poke_info["type"], " vs ", foe_data["type"])
 		
 		if effectiveness > 1:
 			print("Super Efectivo")
@@ -529,32 +546,30 @@ func drop_and_fill_pieces():
 		for i in range(missing):
 			var piece_type = randi() % 4
 			var pokemon_data = team[piece_type]
+			var parsed = parse_pokemon_id(pokemon_data["id"])
+			
 			var piece = PokemonPiece.new()
-			piece.setup(x, 0, piece_type, TILE_SIZE, pokemon_data["id"], pokemon_data["level"])
+			piece.setup(x, 0, piece_type, TILE_SIZE, parsed["pokemon_id"], pokemon_data["level"], parsed["form_id"])
 			var start_y = -missing + i
 			piece.position = grid_container.position + Vector2(x * TILE_SIZE, start_y * TILE_SIZE)
 			
-			# Animación de entrada: empezar con escala 0
 			piece.scale = Vector2(0.0, 0.0)
 			
-			# Establecer el color correcto desde el inicio
 			if dim_non_matching:
-				piece.modulate = Color(0.4, 0.4, 0.4, 0.0)  # Empieza transparente pero con el dim
+				piece.modulate = Color(0.4, 0.4, 0.4, 0.0)
 			else:
-				piece.modulate = Color(1.0, 1.0, 1.0, 0.0)  # Empieza transparente normal
+				piece.modulate = Color(1.0, 1.0, 1.0, 0.0)
 
 			piece.piece_pressed.connect(_on_piece_pressed)
 			piece.piece_dragged.connect(_on_piece_dragged)
 			piece.piece_released.connect(_on_piece_released)
 			add_child(piece)
 			
-			# Pop in animation antes de caer
 			var pop_tween = create_tween()
 			pop_tween.set_ease(Tween.EASE_OUT)
 			pop_tween.set_trans(Tween.TRANS_BACK)
 			pop_tween.set_parallel(true)
 			pop_tween.tween_property(piece, "scale", Vector2(1.0, 1.0), 0.2)
-			# Animar solo el alpha, manteniendo el color RGB
 			if dim_non_matching:
 				pop_tween.tween_property(piece, "modulate:a", 1.0, 0.2)
 			else:
@@ -565,10 +580,9 @@ func drop_and_fill_pieces():
 		for i in range(existing_bottom_up.size() - 1, -1, -1):
 			column_top_down.append(existing_bottom_up[i])
 		
-		# Aplicar dim a piezas existentes si es necesario
 		if dim_non_matching:
 			for piece in existing_bottom_up:
-				if piece.modulate.a > 0.5:  # Solo si no está ya atenuado
+				if piece.modulate.a > 0.5:
 					piece.modulate = Color(0.4, 0.4, 0.4, 1.0)
 
 		for target_y in range(GRID_HEIGHT):
@@ -581,34 +595,29 @@ func drop_and_fill_pieces():
 			var distance = target_y - current_y_pos
 			
 			if distance > 0:
-				var speed = 600.0  # Aumentado de 400.0 a 600.0 para que caigan más rápido
+				var speed = 600.0
 				var pixels_to_fall = distance * TILE_SIZE
 				var fall_time = min(pixels_to_fall / speed, 0.3)
 				
-				# Animación de caída con stretch (estirar mientras cae)
 				var fall_tween = create_tween()
 				fall_tween.set_parallel(true)
 				
-				# Movimiento de caída
 				fall_tween.tween_property(
 					piece, "position:y",
 					grid_container.position.y + (target_y * TILE_SIZE),
 					fall_time
 				).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 				
-				# Estirar mientras cae (más alto, menos ancho)
 				fall_tween.tween_property(
 					piece, "scale",
 					Vector2(0.9, 1.2),
 					fall_time * 0.5
 				).set_ease(Tween.EASE_OUT)
 				
-				# Callback para hacer squish al aterrizar
 				fall_tween.chain().tween_callback(piece.animate_land_squish)
 				
 				all_tweens.append(fall_tween)
 			else:
-				# Si no cae, solo aparecer
 				piece.scale = Vector2(1.0, 1.0)
 
 	if all_tweens.size() > 0:
@@ -662,8 +671,8 @@ func show_match_damage(matches: Array, damage: int):
 func show_combo_text(combo: int, damage: int):
 	var combo_text = Label.new()
 	combo_text.text = "¡COMBO x" + str(combo) + "!"
-	combo_text.add_theme_font_size_override("font_size", 36 + combo * 2) # más grande cada combo
-	combo_text.modulate = Color(1, 0.9 - (combo * 0.05), 0, 1) # más rojizo según combo
+	combo_text.add_theme_font_size_override("font_size", 36 + combo * 2)
+	combo_text.modulate = Color(1, 0.9 - (combo * 0.05), 0, 1)
 	combo_text.position = Vector2(250, 320 - combo * 5)
 	combo_text.scale = Vector2(0.8, 0.8)
 	add_child(combo_text)
@@ -678,7 +687,6 @@ func show_combo_text(combo: int, damage: int):
 	await tween.finished
 	combo_text.queue_free()
 	
-	# 🔢 Texto de daño adicional
 	var damage_text = Label.new()
 	damage_text.text = "+" + str(damage) + " daño"
 	damage_text.add_theme_font_size_override("font_size", 28)
@@ -727,7 +735,6 @@ func check_game_over():
 		await get_tree().create_timer(1.0).timeout
 		get_tree().reload_current_scene()
 
-
 func show_final_combo_message(combo_count: int):
 	var message := ""
 	var sound_name := ""
@@ -758,7 +765,6 @@ func show_final_combo_message(combo_count: int):
 	label.scale = Vector2(0.7, 0.7)
 	add_child(label)
 	
-	# 🌈 Tween para hacerlo más impactante
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(label, "scale", Vector2(1.2, 1.2), 0.3)
