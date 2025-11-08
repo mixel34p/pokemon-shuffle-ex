@@ -1,0 +1,180 @@
+[gd_scene load_steps=14 format=3 uid="uid://l832qbrss87b"]
+
+[ext_resource type="Script" uid="uid://citi8g2dkukqi" path="res://logic/scripts/main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://c7a3x2blqwx7t" path="res://assets/sprites/backgrounds/battle/puertoblanco.png" id="2_m06js"]
+[ext_resource type="AudioStream" uid="uid://cibjntwpfs5gp" path="res://audio/bgm/21-normal-battle.ogg" id="3_kibsj"]
+[ext_resource type="Texture2D" uid="uid://sfkngs5rjkwv" path="res://assets/sprites/ui/pokemon_grid.png" id="3_o13te"]
+[ext_resource type="Texture2D" uid="uid://cwf3hidfyqyju" path="res://assets/sprites/pokemon/icons/427.png" id="4_w37aa"]
+[ext_resource type="Theme" uid="uid://cxpifrtohp6h8" path="res://logic/gdthemes/battlemenu.tres" id="5_w37aa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w37aa"]
+bg_color = Color(0.4117647, 0.8, 0.99215686, 1)
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_left = 20
+corner_detail = 17
+shadow_size = 4
+shadow_offset = Vector2(2, 1)
+
+[sub_resource type="Theme" id="Theme_yamlg"]
+Button/styles/normal = SubResource("StyleBoxFlat_w37aa")
+Button/styles/pressed = SubResource("StyleBoxFlat_w37aa")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w37aa"]
+
+[sub_resource type="Gradient" id="Gradient_o71m3"]
+colors = PackedColorArray(0.4117647, 0.8, 0.99215686, 1, 0.28235295, 0.64705884, 0.8901961, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cpadw"]
+gradient = SubResource("Gradient_o71m3")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.47777778, 0.50555557)
+fill_to = Vector2(0.98333335, 0.67777777)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tnmtu"]
+texture = SubResource("GradientTexture2D_cpadw")
+
+[sub_resource type="Theme" id="Theme_1qmvn"]
+Panel/styles/panel = SubResource("StyleBoxTexture_tnmtu")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ig7tw")
+
+[node name="BG" type="TextureRect" parent="."]
+offset_right = 718.0
+offset_bottom = 718.0
+texture = ExtResource("2_m06js")
+expand_mode = 1
+
+[node name="GridContainer" type="Node2D" parent="."]
+position = Vector2(4, 708)
+
+[node name="Grids" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -33.0
+offset_top = 30.000004
+offset_right = 7.0
+offset_bottom = 70.0
+scale = Vector2(1.08, 1.08)
+
+[node name="TextureRect" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 28.000002
+offset_top = 618.0
+offset_right = 306.0
+offset_bottom = 896.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+
+[node name="TextureRect3" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 28.000002
+offset_top = 951.00006
+offset_right = 306.0
+offset_bottom = 1229.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+flip_v = true
+
+[node name="TextureRect2" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 618.0
+offset_right = 639.0
+offset_bottom = 896.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="Grids"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 951.0
+offset_right = 639.0
+offset_bottom = 1229.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_o13te")
+flip_h = true
+flip_v = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="EnemySprite" type="TextureRect" parent="UI"]
+custom_minimum_size = Vector2(150, 150)
+offset_left = 217.0
+offset_top = 166.0
+offset_right = 491.0
+offset_bottom = 448.0
+texture = ExtResource("4_w37aa")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TurnsLeft" type="Panel" parent="UI"]
+offset_left = 9.0
+offset_top = 577.0
+offset_right = 218.0
+offset_bottom = 664.0
+theme = ExtResource("5_w37aa")
+
+[node name="StageNumber" type="Panel" parent="UI"]
+offset_left = 9.0
+offset_top = 56.0
+offset_right = 205.0
+offset_bottom = 102.0
+theme = ExtResource("5_w37aa")
+
+[node name="Score" type="Panel" parent="UI"]
+offset_left = 9.0
+offset_top = 128.0
+offset_right = 205.0
+offset_bottom = 174.0
+theme = ExtResource("5_w37aa")
+
+[node name="MovesLabel" type="Label" parent="UI"]
+offset_left = 17.0
+offset_top = 603.0
+offset_right = 208.0
+offset_bottom = 637.0
+theme_override_font_sizes/font_size = 24
+text = "Movimientos: 15"
+
+[node name="HPLabel" type="Label" parent="UI"]
+offset_left = 238.0
+offset_top = 431.0
+offset_right = 482.0
+offset_bottom = 465.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "HP Enemigo: 100/100"
+
+[node name="Menu" type="Button" parent="UI"]
+offset_left = 650.0
+offset_top = 25.0
+offset_right = 718.0
+offset_bottom = 90.0
+theme = SubResource("Theme_yamlg")
+
+[node name="Panel" type="Panel" parent="UI/Menu"]
+z_index = -1
+material = SubResource("CanvasItemMaterial_w37aa")
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 68.0
+offset_bottom = 61.0
+theme = SubResource("Theme_1qmvn")
+
+[node name="Combo" type="Marker2D" parent="."]
+position = Vector2(696, 113)
+
+[node name="Other" type="Node" parent="."]
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="Other"]
+stream = ExtResource("3_kibsj")

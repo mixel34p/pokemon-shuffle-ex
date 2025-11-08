@@ -26,15 +26,16 @@ var team = [
 var foe = {
 	"id": "9",  # Rattata (puede ser "9" o "9_1" para formas)
 	"hp": 9000000,
-	"turns_for_interference": 1, # Turnos en los que lanza la interferencia 0 para no tener ataque.
+	"turns_for_interference": 999999999, 
 	"disruption_patterns": [
 		#{ "type": "rock", "positions": [[1,1], [3,4]] },
 		#{ "type": "barrier", "positions": [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5]]},
 		#{ "type": "cloud", "positions": "random", "count": 36 },
 		#{ "type": "block", "positions": [[2,2]], "hp": 2 },
-		{ "type": "non_support_pokemon", "pokemon_id": "1", "positions": "random", "count": 6 }
+		#{ "type": "non_support_pokemon", "pokemon_id": "1", "positions": "random", "count": 6 }
 	]
 }
+var initial_grid_config: GridInitialConfig = null
 
 # Datos del enemigo cargados del JSON
 var foe_data = {}
@@ -80,7 +81,7 @@ var last_hovered_piece = null
 
 # Turn counter for disruption system
 var turn_count = 0
-
+var level = "ES1"
 @onready var grid_container = $GridContainer
 @onready var moves_label = $UI/MovesLabel
 @onready var hp_label = $UI/HPLabel
@@ -89,9 +90,26 @@ var turn_count = 0
 func _ready():
 	load_pokemon_data()
 	load_foe_data()
-	setup_grid()
-	generate_initial_board()
+	setup_grid() 
+	
+	## Cargar configuración de nivel.
+	var levels_data = LevelDatabase.load_levels_from_json()
+	var config = LevelDatabase.get_level_config_from_json(str(level), levels_data)
+	initial_grid_config = config
+	## Cargar configuración de nivel.
+	
+	if initial_grid_config == null:
+		initial_grid_config = GridInitialConfig.create_default()
+	
+	if initial_grid_config.validate():
+		generate_board_from_config(initial_grid_config)
+	else:
+		push_error("Configuración inválida, usando generación por defecto")
+		generate_initial_board()
+	
 	update_ui()
+
+
 
 func load_pokemon_data():
 	var file = FileAccess.open(POKEMON_DATA_PATH, FileAccess.READ)
@@ -1490,3 +1508,66 @@ func test_non_support_pokemon():
 	print("2. Se pueden mover y combinar normalmente")
 	print("3. Hacen daño cuando coinciden 3 o más")
 	print("=====================================")
+func generate_board_from_config(config: GridInitialConfig):
+	"""Genera el tablero inicial basado en una configuración"""
+	print("🎮 [GRID INIT] Generando tablero desde configuración")
+	
+	for y in range(GRID_HEIGHT):
+		for x in range(GRID_WIDTH):
+			var cell = config.grid_config[y][x]
+			
+			match cell.type:
+				GridInitialConfig.CellType.DEFAULT:
+					var piece_type = randi() % 4
+					while check_would_match(x, y, piece_type):
+						piece_type = randi() % 4
+					create_piece(x, y, piece_type)
+				
+				GridInitialConfig.CellType.TEAM_POKEMON:
+					if cell.team_index >= 0 and cell.team_index < team.size():
+						create_piece(x, y, cell.team_index)
+				
+				GridInitialConfig.CellType.NON_SUPPORT:
+					create_non_support_piece(x, y, cell.pokemon_id)
+				
+				GridInitialConfig.CellType.ROCK:
+					create_disruption_piece(x, y, "rock", cell.hp)
+				
+				GridInitialConfig.CellType.BLOCK:
+					create_disruption_piece(x, y, "block", cell.hp)
+				
+				GridInitialConfig.CellType.BARRIER:
+					var piece_type = randi() % 4
+					create_piece(x, y, piece_type)
+					if grid[y][x] != null:
+						grid[y][x].set_interference("barrier", cell.hp)
+				
+				GridInitialConfig.CellType.CLOUD:
+					var piece_type = randi() % 4
+					create_piece(x, y, piece_type)
+					create_cloud_overlay(x, y)
+				
+				GridInitialConfig.CellType.EMPTY:
+					grid[y][x] = null
+
+func create_non_support_piece(x: int, y: int, pokemon_id: int):
+	"""Crea una pieza de Pokémon no soporte"""
+	var piece = PokemonPiece.new()
+	piece.setup(x, y, 4, TILE_SIZE, pokemon_id, 1, 0)
+	piece.position = grid_container.position + Vector2(x * TILE_SIZE, y * TILE_SIZE)
+	piece.piece_pressed.connect(_on_piece_pressed)
+	piece.piece_dragged.connect(_on_piece_dragged)
+	piece.piece_released.connect(_on_piece_released)
+	add_child(piece)
+	grid[y][x] = piece
+
+func create_disruption_piece(x: int, y: int, disruption_type: String, hp: int):
+	"""Crea una pieza de interferencia (rock/block)"""
+	var piece = PokemonPiece.new()
+	piece.setup_as_disruption(x, y, disruption_type, TILE_SIZE, hp)
+	piece.position = grid_container.position + Vector2(x * TILE_SIZE, y * TILE_SIZE)
+	piece.piece_pressed.connect(_on_piece_pressed)
+	piece.piece_dragged.connect(_on_piece_dragged)
+	piece.piece_released.connect(_on_piece_released)
+	add_child(piece)
+	grid[y][x] = piece

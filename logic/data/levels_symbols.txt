@@ -1,0 +1,10 @@
+// SÍMBOLOS
+. = Default (random)
+0-3 = Team Pokemon (índice)
+R = Rock
+B = Block (HP=1)
+B2 = Block (HP=2)
+X = Barrier
+C = Cloud
+_ = Empty
+N:19 = Non-support Pokemon (ID)

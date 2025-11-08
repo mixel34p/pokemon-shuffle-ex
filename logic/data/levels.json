@@ -1,0 +1,26 @@
+
+
+
+
+
+{
+  "ES1": {
+    "name": "Esquinas Peligrosas",
+    "description": "Rocas en las esquinas",
+    "grid": [
+      ["3", "X", "3", "X", "3", "X"],
+      ["3", "X", "3", "X", "3", "X"],
+      ["3", "X", "2", "X", "2", "X"],
+      ["2", "X", "2", "X", "2", "X"],
+      ["2", "X", "N:19", ".", ".", "."],
+      [".", ".", ".", ".", ".", "."]
+      
+    ],
+    "moves": 25,
+    "enemy": {
+      "id": "19",
+      "hp": 6000,
+      "turns_for_interference": 4
+    }
+  }
+}
