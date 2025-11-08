@@ -178,4 +178,3 @@ position = Vector2(696, 113)
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="Other"]
 stream = ExtResource("3_kibsj")
-autoplay = true
