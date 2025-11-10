@@ -8,8 +8,9 @@
     "flags": [],
     "forms": {
       "1": {
-        "name": "Winking",
-        "type": "grass",
+        "name": "Bulbasaur",
+        "form_name":"Winkimg",
+        "type": "dark",
         "base_atk": 40,
         "max_atk": 60,
         "skill": "blocksmash+",

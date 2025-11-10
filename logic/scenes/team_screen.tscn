@@ -1,0 +1,472 @@
+[gd_scene load_steps=37 format=3 uid="uid://cbclw54tohhi1"]
+
+[ext_resource type="Texture2D" uid="uid://iej82v3b38oa" path="res://assets/sprites/ui/PkTeamScreenBg.png" id="1_abqx6"]
+[ext_resource type="Script" uid="uid://dxu1wsb3umtr" path="res://logic/scripts/team_ui/team_screen.gd" id="1_j3h4g"]
+[ext_resource type="Texture2D" uid="uid://ik2ncnk5qi0i" path="res://assets/sprites/ui/back_sign.png" id="2_cyw8r"]
+[ext_resource type="Texture2D" uid="uid://4faubjnaqupv" path="res://assets/sprites/ui/PokemonTeam.png" id="2_yknep"]
+[ext_resource type="Texture2D" uid="uid://upavo37gbyhi" path="res://assets/sprites/ui/search_sign.png" id="3_cblry"]
+[ext_resource type="Texture2D" uid="uid://dgvqi1vm8l16o" path="res://assets/sprites/ui/bag_icon.png" id="4_dkk31"]
+[ext_resource type="Texture2D" uid="uid://buia0f6cxpiqj" path="res://assets/sprites/ui/superefective.png" id="5_6eg1b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3h4g"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ex45w"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ogy6"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wh6h"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd12t"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_il4vr"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbysi"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c622k"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cphk"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nmhd"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyakt"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(3, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yknep"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 2
+shadow_offset = Vector2(-3, 0)
+
+[sub_resource type="Theme" id="Theme_cblry"]
+Button/styles/disabled = SubResource("StyleBoxFlat_j3h4g")
+Button/styles/disabled_mirrored = SubResource("StyleBoxFlat_ex45w")
+Button/styles/focus = SubResource("StyleBoxFlat_7ogy6")
+Button/styles/hover = SubResource("StyleBoxFlat_4wh6h")
+Button/styles/hover_mirrored = SubResource("StyleBoxFlat_bd12t")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_il4vr")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_xbysi")
+Button/styles/normal = SubResource("StyleBoxFlat_c622k")
+Button/styles/normal_mirrored = SubResource("StyleBoxFlat_4cphk")
+Button/styles/pressed = SubResource("StyleBoxFlat_3nmhd")
+Button/styles/pressed_mirrored = SubResource("StyleBoxFlat_vyakt")
+Panel/styles/panel = SubResource("StyleBoxFlat_yknep")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cblry"]
+bg_color = Color(0.8745098, 0.74509805, 1, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0.8117647, 0.6509804, 1, 1)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Theme" id="Theme_6eg1b"]
+Panel/styles/panel = SubResource("StyleBoxFlat_cblry")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkk31"]
+bg_color = Color(1, 0.6627451, 0.69803923, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0.99215686, 0.5058824, 0.57254905, 1)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Theme" id="Theme_tfwhi"]
+Panel/styles/panel = SubResource("StyleBoxFlat_dkk31")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yknep"]
+font_size = 35
+outline_size = 15
+outline_color = Color(0.99607843, 0.5921569, 0.6392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6eg1b"]
+bg_color = Color(1, 0.7176471, 0.6509804, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(1, 0.5568628, 0.42745098, 1)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Theme" id="Theme_j3h4g"]
+Panel/styles/panel = SubResource("StyleBoxFlat_6eg1b")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abqx6"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0.9979029, 0.73140955, 0.59622324, 1)
+border_blend = true
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+
+[sub_resource type="Theme" id="Theme_yknep"]
+Panel/styles/panel = SubResource("StyleBoxFlat_abqx6")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfwhi"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_offset = Vector2(-3, 0)
+
+[sub_resource type="Theme" id="Theme_ex45w"]
+Button/styles/disabled = SubResource("StyleBoxFlat_yknep")
+Button/styles/disabled_mirrored = SubResource("StyleBoxFlat_yknep")
+Button/styles/focus = SubResource("StyleBoxFlat_yknep")
+Button/styles/hover = SubResource("StyleBoxFlat_yknep")
+Button/styles/hover_mirrored = SubResource("StyleBoxFlat_yknep")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_yknep")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_yknep")
+Button/styles/normal = SubResource("StyleBoxFlat_yknep")
+Button/styles/normal_mirrored = SubResource("StyleBoxFlat_yknep")
+Button/styles/pressed = SubResource("StyleBoxFlat_yknep")
+Button/styles/pressed_mirrored = SubResource("StyleBoxFlat_yknep")
+Panel/styles/panel = SubResource("StyleBoxFlat_tfwhi")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cyw8r"]
+bg_color = Color(0.4392157, 0.8901961, 0.69803923, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0.27058825, 0.7882353, 0.56078434, 1)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Theme" id="Theme_dkk31"]
+Panel/styles/panel = SubResource("StyleBoxFlat_cyw8r")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_abqx6"]
+
+[sub_resource type="Theme" id="Theme_cyw8r"]
+Panel/styles/panel = SubResource("StyleBoxEmpty_abqx6")
+
+[sub_resource type="LabelSettings" id="LabelSettings_abqx6"]
+font_size = 31
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+
+[node name="TeamScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j3h4g")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="BG" type="TextureRect" parent="CanvasLayer"]
+offset_right = 1000.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/BG"]
+layout_mode = 0
+offset_left = -120.0
+offset_right = 880.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+flip_h = true
+
+[node name="BG2" type="TextureRect" parent="CanvasLayer/BG"]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/BG/BG2"]
+layout_mode = 0
+offset_left = -120.0
+offset_right = 880.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+flip_h = true
+
+[node name="BackButton" type="Button" parent="CanvasLayer"]
+offset_left = 33.0
+offset_top = 1396.0
+offset_right = 152.0
+offset_bottom = 1512.0
+theme = SubResource("Theme_cblry")
+
+[node name="Back" type="Panel" parent="CanvasLayer/BackButton"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 117.0
+offset_bottom = 112.0
+theme = SubResource("Theme_6eg1b")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/BackButton"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 28.0
+offset_right = 103.0
+offset_bottom = 92.0
+texture = ExtResource("2_cyw8r")
+stretch_mode = 5
+
+[node name="ConfirmButton" type="Button" parent="CanvasLayer"]
+offset_left = 177.0
+offset_top = 1397.0
+offset_right = 530.0
+offset_bottom = 1510.0
+theme = SubResource("Theme_cblry")
+
+[node name="Confirm" type="Panel" parent="CanvasLayer/ConfirmButton"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 351.0
+offset_bottom = 111.0
+theme = SubResource("Theme_tfwhi")
+
+[node name="Label" type="Label" parent="CanvasLayer/ConfirmButton"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 348.0
+offset_bottom = 98.0
+text = "¡Listo!"
+label_settings = SubResource("LabelSettings_yknep")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FiltersButton" type="Button" parent="CanvasLayer"]
+offset_left = 556.0
+offset_top = 1397.0
+offset_right = 675.0
+offset_bottom = 1512.0
+theme = SubResource("Theme_cblry")
+
+[node name="Filters" type="Panel" parent="CanvasLayer/FiltersButton"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 117.0
+offset_bottom = 109.0
+theme = SubResource("Theme_j3h4g")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/FiltersButton"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 95.0
+offset_bottom = 97.0
+texture = ExtResource("3_cblry")
+stretch_mode = 5
+
+[node name="AllPokemonPanel" type="Panel" parent="CanvasLayer"]
+offset_top = 674.0
+offset_right = 720.0
+offset_bottom = 1185.0
+theme = SubResource("Theme_yknep")
+
+[node name="BagButton" type="Button" parent="CanvasLayer/AllPokemonPanel"]
+layout_mode = 0
+offset_left = 638.0
+offset_top = -37.0
+offset_right = 757.0
+offset_bottom = 49.0
+theme = SubResource("Theme_ex45w")
+
+[node name="Bag" type="Panel" parent="CanvasLayer/AllPokemonPanel/BagButton"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 118.0
+offset_bottom = 83.0
+theme = SubResource("Theme_dkk31")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/AllPokemonPanel/BagButton"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 21.0
+offset_right = 71.0
+offset_bottom = 64.0
+texture = ExtResource("4_dkk31")
+
+[node name="SuperEffectiveBase" type="Button" parent="CanvasLayer/AllPokemonPanel"]
+layout_mode = 0
+offset_left = -43.0
+offset_top = -37.0
+offset_right = 76.0
+offset_bottom = 49.0
+theme = SubResource("Theme_cblry")
+
+[node name="Superefetive" type="Panel" parent="CanvasLayer/AllPokemonPanel/SuperEffectiveBase"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 117.0
+offset_bottom = 83.0
+theme = SubResource("Theme_dkk31")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/AllPokemonPanel/SuperEffectiveBase"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 17.0
+offset_right = 100.0
+offset_bottom = 65.0
+texture = ExtResource("5_6eg1b")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AllPokemonPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 112.0
+offset_right = 720.0
+offset_bottom = 572.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AllPokemonPanel/HBoxContainer"]
+layout_mode = 2
+
+[node name="InfoPanel" type="Panel" parent="CanvasLayer"]
+offset_right = 720.0
+offset_bottom = 506.0
+theme = SubResource("Theme_cyw8r")
+
+[node name="Label" type="Label" parent="CanvasLayer/InfoPanel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 168.0
+offset_right = 726.0
+offset_bottom = 678.0
+text = "Arrastra los pokemon de apoyo 
+hasta el recuadro naranja 
+para seleccionarlos"
+label_settings = SubResource("LabelSettings_abqx6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PokemonTeam" type="TextureRect" parent="CanvasLayer"]
+offset_left = 119.0
+offset_top = 610.0
+offset_right = 594.0
+offset_bottom = 751.0
+texture = ExtResource("2_yknep")
+
+[node name="TeamSection" type="VBoxContainer" parent="CanvasLayer/PokemonTeam"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 13.0
+offset_right = 481.0
+offset_bottom = 129.0
+
+[node name="TeamContainer" type="HBoxContainer" parent="CanvasLayer/PokemonTeam/TeamSection"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
+z_index = 4
+offset_left = 16.0
+offset_top = 759.0
+offset_right = 690.0
+offset_bottom = 1117.0
+
+[node name="PokemonGrid" type="GridContainer" parent="CanvasLayer/ScrollContainer"]
+layout_mode = 2
+
+[connection signal="button_down" from="CanvasLayer/BackButton" to="." method="_on_back_button_button_down"]

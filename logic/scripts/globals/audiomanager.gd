@@ -32,6 +32,10 @@ var sfx := {
 	"combo_end_2": preload("res://audio/me/combo_end_2.wav"),
 	"combo_end_3": preload("res://audio/me/combo_end_3.wav"),
 	"combo_end_4": preload("res://audio/me/combo_end_4.wav"),
+	"disruption": preload("res://audio/se/disruption.wav"),
+	"warning_disruption": preload("res://audio/se/warning_interference.wav"),
+	"appear": preload("res://audio/se/appear.wav"),
+	"start": preload("res://audio/se/start!.wav")
 }
 
 func play_sfx(name: String, volume := 0.0, pitch_range := Vector2(1.0, 1.0)):
