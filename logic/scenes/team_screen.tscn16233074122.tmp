@@ -451,9 +451,9 @@ texture = ExtResource("2_yknep")
 
 [node name="TeamSection" type="VBoxContainer" parent="CanvasLayer/PokemonTeam"]
 layout_mode = 0
-offset_left = 21.0
+offset_left = 20.0
 offset_top = 17.0
-offset_right = 478.0
+offset_right = 477.0
 offset_bottom = 133.0
 
 [node name="TeamContainer" type="HBoxContainer" parent="CanvasLayer/PokemonTeam/TeamSection"]
@@ -462,10 +462,10 @@ alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
 z_index = 4
-offset_left = 70.0
+offset_left = 16.0
 offset_top = 759.0
-offset_right = 690.0
-offset_bottom = 1120.0
+offset_right = 706.0
+offset_bottom = 1136.0
 
 [node name="PokemonGrid" type="GridContainer" parent="CanvasLayer/ScrollContainer"]
 layout_mode = 2

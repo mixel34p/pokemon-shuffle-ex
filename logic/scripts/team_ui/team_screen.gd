@@ -1,6 +1,3 @@
-# ============================================
-# PokemonTeamSelector.gd - Pantalla de selección de equipo
-# ============================================
 extends Control
 
 # Referencias a nodos
@@ -9,48 +6,52 @@ extends Control
 @onready var all_pokemon_grid: GridContainer = $CanvasLayer/ScrollContainer/PokemonGrid
 @onready var back_button: Button = $CanvasLayer/ConfirmButton
 
+# Escena de la card
+const POKEMON_CARD_SCENE = preload("res://logic/scenes/ui_elements/pokemon_card_team.tscn")
+
 # Constantes
-const TEAM_SLOT_SIZE = 120
-const POKEMON_CARD_SIZE = 100
+const TEAM_SLOT_SIZE = Vector2(90, 90)
+const GRID_SLOT_SIZE = Vector2(115, 105)
 const GRID_COLUMNS = 5
 const POKEMON_DATA_PATH = "res://logic/data/pokemon.json"
 
 # Variables
 var team_slots: Array[Control] = []
-var pokemon_cards: Array[Control] = []
-var dragging_card: Control = null
+var pokemon_cards: Array[PokemonCard] = []
+var dragging_card: PokemonCard = null
 var drag_preview: Control = null
 var hover_slot: Control = null
 
-# Variables estilo PokemonPiece
+# Variables de drag
 var can_move := false
 var click_position := Vector2.ZERO
 var has_moved := false
 var smooth_follow_speed := 20.0
 var drag_offset := Vector2.ZERO
 
-# Datos de Pokémon cargados del JSON
+# Datos de Pokémon
 var pokemon_database: Dictionary = {}
+
+# Panel de información
+var info_panel: Control = null
+
+# NUEVA VARIABLE: Card seleccionada actualmente
+var selected_card: PokemonCard = null
 
 func _ready():
 	load_pokemon_database()
 	
-	# Crear equipo de prueba solo si no hay datos
 	if UserData.all_pokemon.is_empty():
-		for i in range(50):
+		for i in range(151):
 			UserData.add_pokemon(str(i+1), 1)
-	
-	# Agregar Pokémon de prueba con forma
-	
-	# TEST: Probar la función de obtener datos
+	UserData.add_pokemon("1_1", 1)
+	UserData.add_pokemon("503_1", 1)
+	UserData.add_pokemon("503", 1)
+	UserData.add_pokemon("628_1", 1)
+	UserData.add_pokemon("628", 1)
 	var test_data = get_pokemon_data_from_id("1_1")
 	print("=== TEST VER DATOS DE UN POKÉMON ===")
 	print("Nombre: ", test_data.get("name", "?"))
-	print("Forma: ", test_data.get("form_name", "(sin forma)"))
-	print("Tipo: ", test_data.get("type", "?"))
-	print("Base ATK: ", test_data.get("base_atk", "?"))
-	print("Max ATK: ", test_data.get("max_atk", "?"))
-	print("Habilidad: ", test_data.get("skill", "?"))
 	print("==========================")
 	
 	setup_team_slots()
@@ -64,49 +65,20 @@ func setup_team_slots():
 		team_container.add_child(slot)
 		team_slots.append(slot)
 	
-	# Cargar pokémon del equipo actual
 	load_team_pokemon()
 
 func create_team_slot(index: int) -> Control:
-	"""Crea una casilla del equipo - SIN FONDO, solo borde"""
+	"""Crea una casilla del equipo transparente"""
 	var slot = Control.new()
-	slot.custom_minimum_size = Vector2(TEAM_SLOT_SIZE, TEAM_SLOT_SIZE + 40)
+	slot.custom_minimum_size = TEAM_SLOT_SIZE
 	slot.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
-	var vbox = VBoxContainer.new()
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	vbox.size = slot.custom_minimum_size
-	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	slot.add_child(vbox)
-	
-	# Label del slot
-	var label = Label.new()
-	label.text = "Slot " + str(index + 1)
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", 14)
-	label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7, 1.0))
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vbox.add_child(label)
-	
-	# Contenedor para el pokemon (con borde sutil)
-	var pokemon_container = PanelContainer.new()
-	pokemon_container.custom_minimum_size = Vector2(TEAM_SLOT_SIZE, TEAM_SLOT_SIZE)
+	var pokemon_container = Control.new()
+	pokemon_container.custom_minimum_size = TEAM_SLOT_SIZE
 	pokemon_container.name = "PokemonContainer"
 	pokemon_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	# Estilo: solo borde, sin fondo
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0, 0, 0, 0)  # Transparente
-	style.border_color = Color(0.4, 0.4, 0.45, 0.5)
-	style.set_border_width_all(2)
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
-	pokemon_container.add_theme_stylebox_override("panel", style)
-	
-	vbox.add_child(pokemon_container)
+	slot.add_child(pokemon_container)
 	
 	slot.set_meta("slot_index", index)
 	slot.set_meta("pokemon_container", pokemon_container)
@@ -114,7 +86,7 @@ func create_team_slot(index: int) -> Control:
 	return slot
 
 func load_team_pokemon():
-	"""Carga los pokémon que ya están en el equipo"""
+	"""Carga los pokémon del equipo"""
 	var equipo_indices = UserData.equipo_pokemon
 	
 	for i in range(equipo_indices.size()):
@@ -130,163 +102,140 @@ func load_team_pokemon():
 			create_pokemon_card_in_slot(pokemon_data, pokemon_container, pokemon_index, true)
 
 func load_all_pokemon():
-	"""Carga todos los pokémon del jugador en el grid"""
+	"""Carga todos los pokémon en el grid (las formas quedan junto al base)."""
 	all_pokemon_grid.columns = GRID_COLUMNS
-	
-	for i in range(UserData.all_pokemon.size()):
-		var pokemon_data = UserData.obtain_full_pokemon(i)
-		
-		if not pokemon_data.is_empty():
-			# Solo mostrar si NO está en el equipo
-			if not UserData.equipo_pokemon.has(i):
-				var card = create_pokemon_card(pokemon_data, i, false)
-				all_pokemon_grid.add_child(card)
-				pokemon_cards.append(card)
+	all_pokemon_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	all_pokemon_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	all_pokemon_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
-func create_pokemon_card(pokemon_data: Dictionary, pokemon_index: int, in_team: bool) -> Control:
-	"""Crea una tarjeta de pokémon draggeable CON FONDO (TextureRect)"""
-	var card = Control.new()
-	card.custom_minimum_size = Vector2(POKEMON_CARD_SIZE, POKEMON_CARD_SIZE + 40)
-	card.mouse_filter = Control.MOUSE_FILTER_PASS
-	card.pivot_offset = Vector2(POKEMON_CARD_SIZE / 2.0, (POKEMON_CARD_SIZE + 40) / 2.0)
+	# Construir lista intermedia con información clara (array_index, data, full_id, base_id, form_id)
+	var pokemon_list: Array = []
+	for i in range(UserData.all_pokemon.size()):
+		var entry = UserData.all_pokemon[i]
+		var full_id: String = ""
+
+		# Soportar distintos formatos de almacenamiento
+		if typeof(entry) == TYPE_DICTIONARY:
+			# si el entry es un diccionario, intentar obtener el campo "id"
+			full_id = str(entry.get("id", str(i)))
+		else:
+			# si es string u otro, convertir a string directamente
+			full_id = str(entry)
+
+		# Obtener datos completos desde UserData (usa el índice real)
+		var pokemon_data = UserData.obtain_full_pokemon(i)
+		if pokemon_data.is_empty():
+			continue
+
+		# Parsear base y forma de forma segura
+		var parts = full_id.split("_")
+		var base_id_str = parts[0]
+		var form_id_str = "0"
+		if parts.size() > 1:
+			form_id_str = parts[1]
+
+		# Añadir a la lista
+		pokemon_list.append({
+			"array_index": i,
+			"data": pokemon_data,
+			"full_id": full_id,
+			"base_id": int(base_id_str),
+			"form_id": int(form_id_str)
+		})
+
+	# Ordenar: primero por base_id, luego por form_id (ambos numéricos)
+	pokemon_list.sort_custom(func(a, b):
+		if a["base_id"] != b["base_id"]:
+			return a["base_id"] < b["base_id"]
+		return a["form_id"] < b["form_id"]
+	)
+
+	# Añadir las cards al grid
+	for pokemon_entry in pokemon_list:
+		var card = create_pokemon_card(
+			pokemon_entry["data"],
+			pokemon_entry["array_index"],
+			false
+		)
+		# Asegurar tamaño para que GridContainer las distribuya correctamente
+		card.custom_minimum_size = GRID_SLOT_SIZE
+		all_pokemon_grid.add_child(card)
+		pokemon_cards.append(card)
+
+
+func create_pokemon_card(pokemon_data: Dictionary, pokemon_index: int, in_team: bool) -> PokemonCard:
+	"""Instancia una card desde la escena"""
+	var card = POKEMON_CARD_SCENE.instantiate() as PokemonCard
 	
-	# 🔥 FONDO: TextureRect con imagen
-	var background = TextureRect.new()
-	background.custom_minimum_size = Vector2(POKEMON_CARD_SIZE, POKEMON_CARD_SIZE + 40)
-	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	background.stretch_mode = TextureRect.STRETCH_SCALE
-	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	# Cargar textura de fondo
-	var bg_path = "res://assets/sprites/grid/pokemon_card_bg.png"
-	if ResourceLoader.exists(bg_path):
-		background.texture = load(bg_path)
-	else:
-		# Placeholder con color
-		background.modulate = Color(0.15, 0.15, 0.2, 1.0)
-	
-	card.add_child(background)
-	
-	# VBox para organizar contenido
-	var vbox = VBoxContainer.new()
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	vbox.size = card.custom_minimum_size
-	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(vbox)
-	
-	# Sprite del pokémon
-	var sprite = create_pokemon_sprite(pokemon_data)
-	sprite.custom_minimum_size = Vector2(POKEMON_CARD_SIZE, POKEMON_CARD_SIZE)
-	sprite.name = "Sprite"
-	vbox.add_child(sprite)
-	
-	# Info container
-	var info_container = VBoxContainer.new()
-	info_container.add_theme_constant_override("separation", 2)
-	info_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vbox.add_child(info_container)
-	
-	# Nivel
-	var level_label = Label.new()
-	level_label.text = "Nv. " + str(pokemon_data.get("nivel", 1))
-	level_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	level_label.add_theme_font_size_override("font_size", 12)
-	level_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	level_label.name = "LevelLabel"
-	info_container.add_child(level_label)
-	
-	# Barra de XP
-	var xp_bar = create_xp_bar(pokemon_data)
-	xp_bar.name = "XPBar"
-	info_container.add_child(xp_bar)
-	
-	# Metadata
-	card.set_meta("pokemon_index", pokemon_index)
-	card.set_meta("pokemon_data", pokemon_data)
-	card.set_meta("in_team", in_team)
-	
-	# Señales
-	card.gui_input.connect(_on_card_gui_input.bind(card))
+	# CRÍTICO: Esperar a que esté en el árbol para configurar
+	call_deferred("_setup_card_deferred", card, pokemon_data, pokemon_index, in_team)
 	
 	return card
 
+func _setup_card_deferred(card: PokemonCard, pokemon_data: Dictionary, pokemon_index: int, in_team: bool):
+	"""Configura la card después de añadirla al árbol"""
+	if not is_instance_valid(card):
+		return
+	
+	card.setup(pokemon_data, pokemon_index, in_team)
+	card.mouse_filter = Control.MOUSE_FILTER_PASS
+	
+	# Asegurar que todos los hijos ignoren el mouse
+	for child in card.get_children():
+		_set_mouse_filter_recursive(child, Control.MOUSE_FILTER_IGNORE)
+	
+	card.gui_input.connect(_on_card_gui_input.bind(card))
+
+func _set_mouse_filter_recursive(node: Node, filter: int):
+	"""Establece el mouse_filter recursivamente"""
+	if node is Control:
+		node.mouse_filter = filter
+	
+	for child in node.get_children():
+		_set_mouse_filter_recursive(child, filter)
+
 func create_pokemon_card_in_slot(pokemon_data: Dictionary, container: Control, pokemon_index: int, in_team: bool):
 	"""Crea una card dentro de un slot del equipo"""
-	# Limpiar slot primero
 	for child in container.get_children():
 		child.queue_free()
 	
 	var card = create_pokemon_card(pokemon_data, pokemon_index, in_team)
 	container.add_child(card)
 
-func create_pokemon_sprite(pokemon_data: Dictionary) -> TextureRect:
-	"""Crea el sprite del pokémon"""
-	var sprite = TextureRect.new()
-	sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	# El ID ya viene como STRING completo (ej: "503_1" o "503")
-	var pokemon_id = pokemon_data.get("id", "1")
-	var sprite_path = "res://assets/sprites/pokemon/icons/" + pokemon_id + ".png"
-	
-	print("Cargando sprite: ", sprite_path)
-	
-	if ResourceLoader.exists(sprite_path):
-		sprite.texture = load(sprite_path)
-	else:
-		# Placeholder con el ID
-		var label = Label.new()
-		label.text = pokemon_id
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		label.add_theme_font_size_override("font_size", 24)
-		label.add_theme_color_override("font_color", Color(1, 1, 1, 0.5))
-		sprite.add_child(label)
-	
-	return sprite
+# ==================== SELECCIÓN ====================
 
-func create_xp_bar(pokemon_data: Dictionary) -> ProgressBar:
-	"""Crea la barra de experiencia"""
-	var xp_bar = ProgressBar.new()
-	xp_bar.custom_minimum_size = Vector2(POKEMON_CARD_SIZE - 10, 8)
-	xp_bar.show_percentage = false
-	xp_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+func select_card(card: PokemonCard):
+	"""Selecciona una card y deselecciona la anterior"""
+	if selected_card == card:
+		return
 	
-	var current_exp = pokemon_data.get("exp", 0)
-	var next_level_exp = pokemon_data.get("exp_siguiente_nivel", 100)
+	# Deseleccionar la anterior (solo si NO está en el equipo)
+	if selected_card != null and is_instance_valid(selected_card):
+		if not selected_card.is_in_team:
+			selected_card.stop_selected()
 	
-	xp_bar.max_value = next_level_exp
-	xp_bar.value = current_exp
-	
-	# Estilo de la barra
-	var style_bg = StyleBoxFlat.new()
-	style_bg.bg_color = Color(0.2, 0.2, 0.2, 1.0)
-	style_bg.corner_radius_top_left = 4
-	style_bg.corner_radius_top_right = 4
-	style_bg.corner_radius_bottom_left = 4
-	style_bg.corner_radius_bottom_right = 4
-	xp_bar.add_theme_stylebox_override("background", style_bg)
-	
-	var style_fg = StyleBoxFlat.new()
-	style_fg.bg_color = Color(0.3, 0.7, 1.0, 1.0)
-	style_fg.corner_radius_top_left = 4
-	style_fg.corner_radius_top_right = 4
-	style_fg.corner_radius_bottom_left = 4
-	style_fg.corner_radius_bottom_right = 4
-	xp_bar.add_theme_stylebox_override("fill", style_fg)
-	
-	return xp_bar
+	# Seleccionar la nueva
+	selected_card = card
+	# Reproducir animación solo si NO está en el equipo
+	if selected_card != null and is_instance_valid(selected_card):
+		if not selected_card.is_in_team:
+			selected_card.play_selected()
 
-func _on_card_gui_input(event: InputEvent, card: Control):
-	"""Maneja el input de las cards de pokémon"""
+func deselect_current_card():
+	"""Deselecciona la card actual sin seleccionar otra"""
+	if selected_card != null and is_instance_valid(selected_card):
+		selected_card.stop_selected()
+		selected_card = null
+
+# ==================== INPUT Y DRAG ====================
+
+func _on_card_gui_input(event: InputEvent, card: PokemonCard):
+	"""Maneja el input de las cards"""
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			# 🔥 INICIO DEL DRAG
 			if dragging_card != null:
 				return
 			
-			drag_offset = get_global_mouse_position() - card.global_position
 			click_position = get_global_mouse_position()
 			has_moved = false
 			can_move = false
@@ -294,207 +243,256 @@ func _on_card_gui_input(event: InputEvent, card: Control):
 			animate_pick_up(card)
 			get_viewport().set_input_as_handled()
 		else:
-			# 🔥 SOLTAR
 			if dragging_card == card:
 				if not has_moved:
-					# Clic sin arrastrar - cancelar
-					print("Clic sin arrastrar - cancelando")
+					print("Click sin arrastrar - cancelando")
 					animate_release(card)
 					cleanup_drag()
 					get_viewport().set_input_as_handled()
 				else:
-					# Arrastre real - intentar colocar
 					end_drag(card)
 					get_viewport().set_input_as_handled()
 
-func animate_pick_up(card: Control):
-	"""Animación al agarrar - CON PREVIEW"""
+func animate_pick_up(card: PokemonCard):
+	"""Animación al agarrar - Preview grande y transparente"""
 	Audiomanager.play_sfx("grab_pokemon")
 	dragging_card = card
 	
-	# 🔥 Crear preview visual en la posición global de la card
+	# SELECCIONAR la card al empezar a arrastrar (siempre)
+	select_card(card)
+	
+	# Crear preview en la posición de la card
 	drag_preview = create_drag_preview(card)
 	add_child(drag_preview)
-	drag_preview.global_position = card.global_position
+	
+	# Centrar preview en la card
+	var card_center = card.global_position + card.size / 2
+	drag_preview.global_position = card_center - drag_preview.size / 2
 	drag_preview.z_index = 100
 	
-	# 🔥 Ocultar card original (NO moverla)
+	# Calcular offset DESPUÉS de posicionar
+	drag_offset = get_global_mouse_position() - drag_preview.global_position
+	
+	# Transparentar card original
 	card.modulate.a = 0.3
 	
-	# 🔥 ANIMACIÓN DEL PREVIEW (no de la card original)
+	# Animación del preview
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(drag_preview, "scale", Vector2(1.3, 1.3), 0.15)
-	tween.tween_property(drag_preview, "modulate:a", 0.7, 0.15)
+	tween.tween_property(drag_preview, "scale", Vector2(1.5, 1.5), 0.15)
+	tween.tween_property(drag_preview, "modulate:a", 0.6, 0.15)
 	
 	await tween.finished
 	can_move = true
+	
+	show_pokemon_info_panel(card)
 
-func create_drag_preview(original_card: Control) -> Control:
-	"""Crea una copia visual de la card para arrastrar"""
-	var preview = Control.new()
-	preview.custom_minimum_size = original_card.custom_minimum_size
+func create_drag_preview(card: PokemonCard) -> TextureRect:
+	"""Crea un preview simple usando la textura del sprite"""
+	var preview = TextureRect.new()
+	preview.texture = card.get_sprite_texture()
+	preview.custom_minimum_size = Vector2(100, 100)
+	preview.size = Vector2(100, 100)
+	preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	preview.pivot_offset = Vector2(POKEMON_CARD_SIZE / 2.0, (POKEMON_CARD_SIZE + 40) / 2.0)
-	
-	# Copiar el fondo
-	var bg = TextureRect.new()
-	bg.custom_minimum_size = original_card.custom_minimum_size
-	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	bg.stretch_mode = TextureRect.STRETCH_SCALE
-	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	var bg_path = "res://assets/sprites/grid/pokemon_card_bg.png"
-	if ResourceLoader.exists(bg_path):
-		bg.texture = load(bg_path)
-	else:
-		bg.modulate = Color(0.15, 0.15, 0.2, 1.0)
-	
-	preview.add_child(bg)
-	
-	# Copiar contenido visual
-	var vbox = VBoxContainer.new()
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	vbox.size = preview.custom_minimum_size
-	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	preview.add_child(vbox)
-	
-	# Copiar sprite
-	var pokemon_data = original_card.get_meta("pokemon_data")
-	var sprite = create_pokemon_sprite(pokemon_data)
-	sprite.custom_minimum_size = Vector2(POKEMON_CARD_SIZE, POKEMON_CARD_SIZE)
-	vbox.add_child(sprite)
-	
-	# Copiar info
-	var info = VBoxContainer.new()
-	info.add_theme_constant_override("separation", 2)
-	info.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vbox.add_child(info)
-	
-	var level_label = Label.new()
-	level_label.text = "Nv. " + str(pokemon_data.get("nivel", 1))
-	level_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	level_label.add_theme_font_size_override("font_size", 12)
-	level_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	info.add_child(level_label)
-	
-	var xp_bar = create_xp_bar(pokemon_data)
-	info.add_child(xp_bar)
+	preview.modulate = Color(1, 1, 1, 0.7)
+	preview.pivot_offset = preview.size / 2
 	
 	return preview
 
-func animate_release(card: Control):
-	"""Animación al soltar - ANIMAR EL PREVIEW"""
-	# 🔥 Restaurar visibilidad de la card original
-	card.modulate.a = 1.0
-	
-	# 🔥 ANIMAR EL PREVIEW (no la card)
-	if drag_preview != null:
-		var tween = create_tween()
-		tween.set_parallel(true)
-		tween.set_ease(Tween.EASE_OUT)
-		tween.set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property(drag_preview, "scale", Vector2.ONE, 0.15)
-		tween.tween_property(drag_preview, "modulate:a", 1.0, 0.15)
-		
-		await tween.finished
+func animate_release(card: PokemonCard):
+	"""Restaura la opacidad de la card"""
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(card, "modulate:a", 1.0, 0.2)
+	await tween.finished
 
-func end_drag(card: Control):
+func end_drag(card: PokemonCard):
 	"""Termina el arrastre de una card"""
-	if card == null:
+	if card == null or not is_instance_valid(card):
 		cleanup_drag()
 		return
 	
 	var placed = false
+	var was_over_team_area = false
 	
 	# Verificar si está sobre un slot del equipo
-	if hover_slot != null:
+	if hover_slot != null and is_instance_valid(hover_slot):
+		was_over_team_area = true
 		placed = try_place_in_slot(card, hover_slot)
 	
-	# 🔥 Si NO se colocó pero estaba en el equipo, SACARLO del equipo
-	if not placed:
-		var card_in_team = card.get_meta("in_team")
-		if card_in_team:
-			var pokemon_index = card.get_meta("pokemon_index")
+	# Solo sacar del equipo si:
+	# 1. Era del equipo
+	# 2. NO estaba sobre el área de equipo (se soltó fuera)
+	# 3. NO se colocó exitosamente
+	if not placed and card.is_in_team:
+		if not was_over_team_area:
+			# Se soltó FUERA del área de equipo - sacarlo
+			var pokemon_index = card.pokemon_index
 			UserData.delete_from_team(pokemon_index)
 			print("Pokémon sacado del equipo: ", pokemon_index)
 			Audiomanager.play_sfx("release_pokemon")
-			# Esperar animación antes de refrescar
-			await animate_release(card)
+			if is_instance_valid(card):
+				await animate_release(card)
 			refresh_ui()
 		else:
+			# Se soltó sobre el área de equipo pero no se colocó
+			print("ERROR: Sobre equipo pero no colocado - manteniendo")
 			Audiomanager.play_sfx("cancel")
+			if is_instance_valid(card):
+				await animate_release(card)
+	elif not placed and not card.is_in_team:
+		# Pokémon del grid que no se colocó - simplemente cancelar
+		Audiomanager.play_sfx("cancel")
+		if is_instance_valid(card):
 			await animate_release(card)
 	else:
-		await animate_release(card)
+		# Se colocó exitosamente
+		if is_instance_valid(card):
+			await animate_release(card)
 	
 	cleanup_drag()
 
+
 func cleanup_drag():
-	"""Limpia el estado de drag"""
-	if drag_preview != null:
+	"""Limpia el estado de drag de forma segura"""
+	if drag_preview != null and is_instance_valid(drag_preview):
 		drag_preview.queue_free()
-		drag_preview = null
+	drag_preview = null
+	
+	hide_pokemon_info_panel()
 	
 	dragging_card = null
 	hover_slot = null
 	can_move = false
 	has_moved = false
 
-func try_place_in_slot(card: Control, slot: Control) -> bool:
+
+func try_place_in_slot(card: PokemonCard, slot: Control) -> bool:
 	"""Intenta colocar una card en un slot del equipo"""
 	var slot_index = slot.get_meta("slot_index")
-	var pokemon_index = card.get_meta("pokemon_index")
+	var pokemon_index = card.pokemon_index
 	var pokemon_container = slot.get_meta("pokemon_container")
-	var card_in_team = card.get_meta("in_team")
+	var card_in_team = card.is_in_team
 	
-	# Verificar si el slot ya tiene un pokémon
-	var has_pokemon = pokemon_container.get_child_count() > 0
+	# VALIDACIÓN: Evitar duplicados en el equipo
+	if not card_in_team:
+		# Verificar si este pokémon ya está en el equipo
+		if UserData.equipo_pokemon.has(pokemon_index):
+			print("ERROR: Este Pokémon ya está en el equipo")
+			Audiomanager.play_sfx("cancel")
+			return false
 	
-	if has_pokemon:
-		# SWAP: intercambiar pokémon
-		var slot_card = pokemon_container.get_child(0)
-		var slot_pokemon_index = slot_card.get_meta("pokemon_index")
+	# Verificar si el slot ya tiene un pokémon (de forma segura)
+	var slot_card = get_card_from_container(pokemon_container)
+	var has_pokemon = slot_card != null
+	
+	# CASO 1: El pokémon YA está en el equipo
+	if card_in_team:
+		var old_slot_index = find_card_slot_index(pokemon_index)
+		if old_slot_index == -1:
+			print("ERROR: Pokémon marcado como in_team pero no está en equipo_pokemon")
+			return false
 		
-		if card_in_team:
-			# 🔥 Swap entre dos slots del equipo (mantener posiciones)
-			var card_slot_index = find_card_slot_index(pokemon_index)
-			if card_slot_index != -1:
-				# Intercambiar en el array directamente
-				var temp = UserData.equipo_pokemon[card_slot_index]
-				UserData.equipo_pokemon[card_slot_index] = UserData.equipo_pokemon[slot_index]
-				UserData.equipo_pokemon[slot_index] = temp
+		# Si arrastramos al mismo slot, mantener en su posición
+		if old_slot_index == slot_index:
+			print("Mismo slot - manteniendo posición")
+			return true
+		
+		if has_pokemon:
+			# SWAP: intercambiar posiciones
+			var slot_pokemon_index = slot_card.pokemon_index
+			
+			# Validación adicional: verificar que ambos índices existen
+			if old_slot_index >= UserData.equipo_pokemon.size() or slot_index >= UserData.equipo_pokemon.size():
+				print("ERROR: Índices fuera de rango")
+				return false
+			
+			# Verificar que los índices del array coinciden con las cards
+			if UserData.equipo_pokemon[old_slot_index] != pokemon_index:
+				print("ERROR: Inconsistencia - card no coincide con equipo_pokemon[", old_slot_index, "]")
+				return false
+			
+			if UserData.equipo_pokemon[slot_index] != slot_pokemon_index:
+				print("ERROR: Inconsistencia - slot_card no coincide con equipo_pokemon[", slot_index, "]")
+				return false
+			
+			# Intercambiar directamente
+			var temp = UserData.equipo_pokemon[old_slot_index]
+			UserData.equipo_pokemon[old_slot_index] = UserData.equipo_pokemon[slot_index]
+			UserData.equipo_pokemon[slot_index] = temp
+			
+			print("SWAP: slot ", old_slot_index, " (pokemon ", pokemon_index, ") <-> slot ", slot_index, " (pokemon ", slot_pokemon_index, ")")
 		else:
-			# 🔥 Reemplazar: poner el nuevo en la MISMA posición del slot
-			UserData.equipo_pokemon[slot_index] = pokemon_index
+			# Mover a slot vacío
+			var removed_index = UserData.equipo_pokemon[old_slot_index]
+			UserData.equipo_pokemon.remove_at(old_slot_index)
+			
+			# Ajustar slot_index si es necesario (si estamos moviendo a la derecha)
+			var adjusted_slot_index = slot_index
+			if slot_index > old_slot_index:
+				adjusted_slot_index -= 1
+			
+			# Insertar en la posición correcta
+			if adjusted_slot_index >= UserData.equipo_pokemon.size():
+				UserData.equipo_pokemon.append(removed_index)
+			else:
+				UserData.equipo_pokemon.insert(adjusted_slot_index, removed_index)
+			
+			print("MOVE: slot ", old_slot_index, " -> ", adjusted_slot_index, " (pokemon ", pokemon_index, ")")
+	
+	# CASO 2: El pokémon NO está en el equipo (viene del grid)
 	else:
-		# Slot vacío
-		if card_in_team:
-			# 🔥 Mover de un slot a otro vacío (mantener índice)
-			var old_slot_index = find_card_slot_index(pokemon_index)
-			if old_slot_index != -1:
-				UserData.equipo_pokemon[old_slot_index] = -1
-				UserData.equipo_pokemon[slot_index] = pokemon_index
-				# Limpiar slots vacíos del array
-				UserData.equipo_pokemon = UserData.equipo_pokemon.filter(func(idx): return idx != -1)
-		else:
-			# 🔥 Agregar del grid al slot específico
-			# Insertar en la posición del slot
+		if has_pokemon:
+			# Reemplazar el pokémon existente en el slot
 			if slot_index < UserData.equipo_pokemon.size():
-				UserData.equipo_pokemon.insert(slot_index, pokemon_index)
+				UserData.equipo_pokemon[slot_index] = pokemon_index
 			else:
 				UserData.equipo_pokemon.append(pokemon_index)
 			
-			# Mantener máximo 4 pokémon
-			if UserData.equipo_pokemon.size() > 4:
-				UserData.equipo_pokemon.resize(4)
+			print("REPLACE: slot ", slot_index, " con pokemon ", pokemon_index)
+		else:
+			# Slot vacío - agregar al equipo
+			if UserData.equipo_pokemon.size() >= 4:
+				print("ADVERTENCIA: Equipo lleno")
+				Audiomanager.play_sfx("cancel")
+				return false
+			
+			# Insertar en la posición correcta manteniendo el orden
+			if slot_index >= UserData.equipo_pokemon.size():
+				UserData.equipo_pokemon.append(pokemon_index)
+			else:
+				UserData.equipo_pokemon.insert(slot_index, pokemon_index)
+			
+			print("ADD: pokemon ", pokemon_index, " en slot ", slot_index)
+	
+	# Mantener máximo 4 pokémon
+	if UserData.equipo_pokemon.size() > 4:
+		UserData.equipo_pokemon.resize(4)
+	
+	# VALIDACIÓN FINAL: Verificar que no hay duplicados
+	var seen = {}
+	for i in range(UserData.equipo_pokemon.size()):
+		var idx = UserData.equipo_pokemon[i]
+		if seen.has(idx):
+			print("ERROR CRÍTICO: Duplicado detectado en equipo_pokemon")
+			UserData.equipo_pokemon.remove_at(i)
+			refresh_ui()
+			return false
+		seen[idx] = true
+	
+	# Debug: Mostrar estado final del equipo
+	print("Estado equipo_pokemon: ", UserData.equipo_pokemon)
 	
 	# Actualizar visual
 	refresh_ui()
 	Audiomanager.play_sfx("put_pokemon")
 	return true
+
 
 func find_card_slot_index(pokemon_index: int) -> int:
 	"""Encuentra el índice del slot donde está un pokémon"""
@@ -504,33 +502,66 @@ func find_card_slot_index(pokemon_index: int) -> int:
 	return -1
 
 func refresh_ui():
-	"""Refresca toda la UI"""
-	# Limpiar todo
+	"""Refresca toda la UI de forma segura"""
+	# Guardar referencia a la card seleccionada actual
+	var was_selected_index = -1
+	if selected_card != null and is_instance_valid(selected_card):
+		was_selected_index = selected_card.pokemon_index
+	
+	# Limpiar slots del equipo
 	for slot in team_slots:
 		var container = slot.get_meta("pokemon_container")
+		if container == null:
+			continue
 		for child in container.get_children():
+			if is_instance_valid(child):
+				child.queue_free()
+	
+	# Limpiar grid
+	for child in all_pokemon_grid.get_children():
+		if is_instance_valid(child):
 			child.queue_free()
 	
-	for child in all_pokemon_grid.get_children():
-		child.queue_free()
-	
 	pokemon_cards.clear()
+	selected_card = null
+	
+	# Esperar un frame para asegurar que las cards se eliminaron
+	await get_tree().process_frame
 	
 	# Recargar
 	load_team_pokemon()
 	load_all_pokemon()
+	
+	# Esperar otro frame para que las cards estén listas
+	await get_tree().process_frame
+	
+	# Restaurar la selección si es posible (SOLO en el grid, nunca en el equipo)
+	if was_selected_index != -1:
+		var card_to_select: PokemonCard = null
+		
+		# Buscar SOLO en el grid (no en el equipo)
+		for card in pokemon_cards:
+			if card.pokemon_index == was_selected_index and not card.is_in_team:
+				card_to_select = card
+				break
+		
+		# Reseleccionar solo si se encontró en el grid
+		if card_to_select != null:
+			select_card(card_to_select)
 
 func _process(delta):
 	if drag_preview != null and dragging_card != null and can_move:
-		# 🔥 Mover el preview con lerp smooth
 		var mouse_pos = get_global_mouse_position()
 		
-		# Detectar movimiento significativo
+		# Detectar movimiento
 		if not has_moved and click_position.distance_to(mouse_pos) > 10:
 			has_moved = true
 		
+		# Posición objetivo (smooth follow)
+		var target_pos = mouse_pos - drag_offset
+		
 		drag_preview.global_position = drag_preview.global_position.lerp(
-			mouse_pos - drag_offset,
+			target_pos,
 			delta * smooth_follow_speed
 		)
 		
@@ -552,36 +583,40 @@ func get_slot_under_mouse() -> Control:
 	return null
 
 func highlight_slot(slot: Control):
-	"""Resalta un slot"""
+	"""Resalta un slot con efecto visual"""
 	var pokemon_container = slot.get_meta("pokemon_container")
-	var style = pokemon_container.get_theme_stylebox("panel").duplicate()
-	style.border_color = Color(0.3, 0.8, 1.0, 1.0)
-	style.set_border_width_all(3)
-	pokemon_container.add_theme_stylebox_override("panel", style)
+	
+	if pokemon_container.get_node_or_null("Highlight") != null:
+		return
+	
+	var highlight = ColorRect.new()
+	highlight.name = "Highlight"
+	highlight.color = Color(0.3, 0.6, 1.0, 0.2)
+	highlight.size = TEAM_SLOT_SIZE
+	highlight.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	highlight.z_index = -1
+	
+	pokemon_container.add_child(highlight)
+	pokemon_container.move_child(highlight, 0)
 
 func unhighlight_slot(slot: Control):
 	"""Quita el resaltado de un slot"""
 	var pokemon_container = slot.get_meta("pokemon_container")
-	var style = pokemon_container.get_theme_stylebox("panel").duplicate()
-	style.border_color = Color(0.4, 0.4, 0.45, 0.5)
-	style.set_border_width_all(2)
-	pokemon_container.add_theme_stylebox_override("panel", style)
+	var highlight = pokemon_container.get_node_or_null("Highlight")
+	if highlight:
+		highlight.queue_free()
 
 func _on_back_pressed():
 	"""Vuelve a la escena anterior"""
-	print("adios")
 	UserData.guardar_datos()
 	get_tree().change_scene_to_file("res://logic/scenes/main.tscn")
 
 func _on_back_button_button_down() -> void:
 	"""Vuelve a la escena anterior"""
-	print("adios")
 	UserData.guardar_datos()
 	get_tree().change_scene_to_file("res://logic/scenes/main.tscn")
 
-# ============================================
-# FUNCIONES PARA CARGAR Y PARSEAR DATOS POKÉMON
-# ============================================
+# ==================== DATOS POKÉMON ====================
 
 func load_pokemon_database():
 	"""Carga el JSON de datos de Pokémon"""
@@ -598,13 +633,7 @@ func load_pokemon_database():
 		push_error("No se pudo cargar pokemon.json")
 
 func parse_pokemon_id(pokemon_id_string: String) -> Dictionary:
-	"""
-	Parsea un ID de Pokémon y separa el ID base de la forma.
-	
-	Ejemplos:
-	  "503" → {base_id: "503", form_id: "0", has_form: false}
-	  "503_1" → {base_id: "503", form_id: "1", has_form: true}
-	"""
+	"""Parsea un ID de Pokémon"""
 	var parts = pokemon_id_string.split("_")
 	
 	if parts.size() > 1:
@@ -621,24 +650,14 @@ func parse_pokemon_id(pokemon_id_string: String) -> Dictionary:
 		}
 
 func get_pokemon_data_from_id(pokemon_id_string: String) -> Dictionary:
-	"""
-	Obtiene los datos completos de un Pokémon desde pokemon_database.
-	Si el ID tiene forma (ej: "503_1"), los datos de la forma REEMPLAZAN los datos base.
-	
-	Args:
-	  pokemon_id_string: ID completo como string (ej: "503" o "503_1")
-	
-	Returns:
-	  Dictionary con todos los datos del Pokémon (name, type, base_atk, max_atk, skill, flags)
-	"""
+	"""Obtiene los datos completos de un Pokémon"""
 	var parsed = parse_pokemon_id(pokemon_id_string)
 	var base_id = parsed["base_id"]
 	var form_id = parsed["form_id"]
 	var has_form = parsed["has_form"]
 	
-	# Verificar que existe el Pokémon base
 	if not pokemon_database.has(base_id):
-		print("ERROR: Pokémon con ID ", base_id, " no encontrado en pokemon.json")
+		print("ERROR: Pokémon con ID ", base_id, " no encontrado")
 		return {
 			"name": "Unknown",
 			"type": "normal",
@@ -649,20 +668,97 @@ func get_pokemon_data_from_id(pokemon_id_string: String) -> Dictionary:
 	
 	var base_data = pokemon_database[base_id]
 	
-	# Si NO tiene forma, retornar datos base
 	if not has_form:
 		return base_data.duplicate()
 	
-	# Si tiene forma, verificar que exista
 	if not base_data.has("forms") or not base_data["forms"].has(form_id):
 		print("ERROR: Forma ", form_id, " no existe para Pokémon ", base_id)
 		return base_data.duplicate()
 	
 	var form_data = base_data["forms"][form_id]
-	
-	# Los datos de la forma REEMPLAZAN los datos base
 	var final_data = base_data.duplicate()
 	for key in form_data.keys():
 		final_data[key] = form_data[key]
 	
 	return final_data
+
+# ==================== PANEL DE INFORMACIÓN ====================
+
+func show_pokemon_info_panel(card: PokemonCard):
+	"""Muestra panel de información del Pokémon"""
+	if info_panel != null:
+		info_panel.queue_free()
+	
+	info_panel = create_info_panel_placeholder(card)
+	add_child(info_panel)
+	
+	info_panel.position = Vector2(get_viewport_rect().size.x - 250, 50)
+	info_panel.modulate.a = 0.0
+	
+	var tween = create_tween()
+	tween.tween_property(info_panel, "modulate:a", 1.0, 0.2)
+
+func hide_pokemon_info_panel():
+	"""Oculta el panel de información"""
+	if info_panel != null:
+		var tween = create_tween()
+		tween.tween_property(info_panel, "modulate:a", 0.0, 0.2)
+		await tween.finished
+		info_panel.queue_free()
+		info_panel = null
+
+func create_info_panel_placeholder(card: PokemonCard) -> Control:
+	"""Crea el panel de información"""
+	var panel = PanelContainer.new()
+	panel.custom_minimum_size = Vector2(220, 300)
+	
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.1, 0.1, 0.15, 0.95)
+	style.border_color = Color(0.3, 0.3, 0.4, 1.0)
+	style.set_border_width_all(2)
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_left = 8
+	style.corner_radius_bottom_right = 8
+	panel.add_theme_stylebox_override("panel", style)
+	
+	var vbox = VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 8)
+	panel.add_child(vbox)
+	
+	var full_data = get_pokemon_data_from_id(card.pokemon_data.get("id", "1"))
+	
+	var title = Label.new()
+	title.text = "INFO"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 16)
+	title.add_theme_color_override("font_color", Color(0.8, 0.8, 1.0, 1.0))
+	vbox.add_child(title)
+	
+	var name = Label.new()
+	name.text = full_data.get("name", "???")
+	name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name.add_theme_font_size_override("font_size", 14)
+	vbox.add_child(name)
+	
+	var level = Label.new()
+	level.text = "Nivel: " + str(card.pokemon_data.get("nivel", 1))
+	level.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	level.add_theme_font_size_override("font_size", 12)
+	vbox.add_child(level)
+	
+	var placeholder = Label.new()
+	placeholder.text = "[Más info próximamente]"
+	placeholder.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	placeholder.add_theme_font_size_override("font_size", 10)
+	placeholder.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5, 1.0))
+	vbox.add_child(placeholder)
+	
+	return panel
+
+func get_card_from_container(container: Control) -> PokemonCard:
+	"""Obtiene la PokemonCard de un contenedor de forma segura"""
+	for child in container.get_children():
+		if child is PokemonCard:
+			return child
+	return null

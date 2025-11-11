@@ -1,0 +1,355 @@
+[gd_scene load_steps=13 format=3 uid="uid://cgbd41wntbwai"]
+
+[ext_resource type="Script" uid="uid://dejvp13vm3q7g" path="res://logic/scripts/team_ui/pokemon_card_team.gd" id="1_fncj8"]
+[ext_resource type="Texture2D" uid="uid://bp3b0iff5khjy" path="res://assets/sprites/ui/pokemon bg.png" id="2_m2qet"]
+[ext_resource type="Texture2D" uid="uid://b8j8ds7uien2f" path="res://logic/data/LevelEDITOR/img/pokemon/0.png" id="3_7qyx1"]
+[ext_resource type="Texture2D" uid="uid://w8fgeuimlfe8" path="res://assets/sprites/ui/select_stars.png" id="4_5outw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qyx1"]
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5outw"]
+bg_color = Color(0.27617887, 0.6932262, 0.47145414, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="Theme" id="Theme_qqbf3"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_7qyx1")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_5outw")
+
+[sub_resource type="LabelSettings" id="LabelSettings_m2qet"]
+font_size = 13
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7qyx1"]
+font_size = 12
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_5outw"]
+resource_name = "selected"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content/Selected:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4, 34), Vector2(1, 34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/Selected2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(81, 34), Vector2(82, 34)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Content/Selected:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0.06666667, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Content/Selected2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0.06666667, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Content/Selected3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(77, 56), Vector2(81, 56)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Content/Selected4:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9, 56), Vector2(5, 56)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Content/Selected3:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1, 0.13333334, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Content/Selected4:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0.1, 0.13333334, 0.28),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qqbf3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content/Selected:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/Selected2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(81, 34)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Content/Selected:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Content/Selected2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Content/Selected4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 56)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Content/Selected3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(77, 56)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Content/Selected3:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Content/Selected4:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qqbf3"]
+_data = {
+&"RESET": SubResource("Animation_qqbf3"),
+&"selected": SubResource("Animation_5outw")
+}
+
+[node name="PokemonCardTeam" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(53, 59)
+script = ExtResource("1_fncj8")
+
+[node name="Bg" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_m2qet")
+
+[node name="Content" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 113.0
+offset_bottom = 107.0
+
+[node name="XPBar" type="ProgressBar" parent="Content"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 93.0
+offset_right = 80.0
+offset_bottom = 96.0
+theme = SubResource("Theme_qqbf3")
+show_percentage = false
+
+[node name="IDLabel" type="Label" parent="Content"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 4.0
+offset_right = 83.0
+offset_bottom = 23.0
+text = "0000"
+label_settings = SubResource("LabelSettings_m2qet")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite" type="TextureRect" parent="Content"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 20.0
+offset_right = 89.0
+offset_bottom = 90.0
+texture = ExtResource("3_7qyx1")
+expand_mode = 1
+
+[node name="Lv" type="Label" parent="Content"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 80.0
+offset_right = 78.0
+offset_bottom = 97.0
+text = "Lv"
+label_settings = SubResource("LabelSettings_7qyx1")
+
+[node name="LevelLabel" type="Label" parent="Content"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 80.0
+offset_right = 78.0
+offset_bottom = 97.0
+text = "00"
+label_settings = SubResource("LabelSettings_7qyx1")
+horizontal_alignment = 2
+
+[node name="Selected" type="TextureRect" parent="Content"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 34.0
+offset_right = 28.0
+offset_bottom = 57.0
+texture = ExtResource("4_5outw")
+expand_mode = 1
+
+[node name="Selected2" type="TextureRect" parent="Content"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 81.0
+offset_top = 34.0
+offset_right = 105.0
+offset_bottom = 57.0
+texture = ExtResource("4_5outw")
+expand_mode = 1
+flip_h = true
+
+[node name="Selected3" type="TextureRect" parent="Content"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 77.0
+offset_top = 56.0
+offset_right = 97.0
+offset_bottom = 76.0
+texture = ExtResource("4_5outw")
+expand_mode = 1
+flip_h = true
+
+[node name="Selected4" type="TextureRect" parent="Content"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 9.0
+offset_top = 56.0
+offset_right = 31.0
+offset_bottom = 76.0
+texture = ExtResource("4_5outw")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qqbf3")
+}
