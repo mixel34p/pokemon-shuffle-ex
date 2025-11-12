@@ -121,8 +121,14 @@ func _format_pokemon_id(pokemon_id: String) -> String:
 		var base = parts[0]
 		var form = parts[1]
 		return "%s" % [base]
+		
+		
+		
 func play_selected():
 	$AnimationPlayer.play("selected")
+	
+	
+	
 func stop_selected():
 	$AnimationPlayer.play("RESET")
 	$AnimationPlayer.stop()

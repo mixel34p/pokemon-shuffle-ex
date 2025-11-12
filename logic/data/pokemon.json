@@ -9,7 +9,7 @@
     "forms": {
       "1": {
         "name": "Bulbasaur",
-        "form_name":"Winkimg",
+        "form_name":"Winking",
         "type": "dark",
         "base_atk": 40,
         "max_atk": 60,

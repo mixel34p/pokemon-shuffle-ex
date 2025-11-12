@@ -37,6 +37,8 @@ var info_panel: Control = null
 
 # NUEVA VARIABLE: Card seleccionada actualmente
 var selected_card: PokemonCard = null
+var foe_pokemon_type = null
+
 
 func _ready():
 	load_pokemon_database()
@@ -263,7 +265,7 @@ func animate_pick_up(card: PokemonCard):
 	
 	# Crear preview en la posición de la card
 	drag_preview = create_drag_preview(card)
-	add_child(drag_preview)
+	find_child("CanvasLayer").find_child("DragPreview").add_child(drag_preview)
 	
 	# Centrar preview en la card
 	var card_center = card.global_position + card.size / 2
@@ -293,8 +295,8 @@ func create_drag_preview(card: PokemonCard) -> TextureRect:
 	"""Crea un preview simple usando la textura del sprite"""
 	var preview = TextureRect.new()
 	preview.texture = card.get_sprite_texture()
-	preview.custom_minimum_size = Vector2(100, 100)
-	preview.size = Vector2(100, 100)
+	preview.custom_minimum_size = Vector2(50, 50)
+	preview.size = Vector2(50, 50)
 	preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -689,73 +691,38 @@ func show_pokemon_info_panel(card: PokemonCard):
 	if info_panel != null:
 		info_panel.queue_free()
 	
-	info_panel = create_info_panel_placeholder(card)
-	add_child(info_panel)
+	replace_info_panel(card)
 	
-	info_panel.position = Vector2(get_viewport_rect().size.x - 250, 50)
-	info_panel.modulate.a = 0.0
-	
-	var tween = create_tween()
-	tween.tween_property(info_panel, "modulate:a", 1.0, 0.2)
-
 func hide_pokemon_info_panel():
-	"""Oculta el panel de información"""
-	if info_panel != null:
-		var tween = create_tween()
-		tween.tween_property(info_panel, "modulate:a", 0.0, 0.2)
-		await tween.finished
-		info_panel.queue_free()
-		info_panel = null
+	pass
 
-func create_info_panel_placeholder(card: PokemonCard) -> Control:
-	"""Crea el panel de información"""
-	var panel = PanelContainer.new()
-	panel.custom_minimum_size = Vector2(220, 300)
-	
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.1, 0.1, 0.15, 0.95)
-	style.border_color = Color(0.3, 0.3, 0.4, 1.0)
-	style.set_border_width_all(2)
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
-	panel.add_theme_stylebox_override("panel", style)
-	
-	var vbox = VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 8)
-	panel.add_child(vbox)
-	
+func replace_info_panel(card: PokemonCard):
+	$CanvasLayer/InfoPanel/NoSelectedText.hide()
+	$CanvasLayer/InfoPanel/Info.show()
 	var full_data = get_pokemon_data_from_id(card.pokemon_data.get("id", "1"))
 	
-	var title = Label.new()
-	title.text = "INFO"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 16)
-	title.add_theme_color_override("font_color", Color(0.8, 0.8, 1.0, 1.0))
-	vbox.add_child(title)
-	
-	var name = Label.new()
-	name.text = full_data.get("name", "???")
-	name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name.add_theme_font_size_override("font_size", 14)
-	vbox.add_child(name)
-	
-	var level = Label.new()
-	level.text = "Nivel: " + str(card.pokemon_data.get("nivel", 1))
-	level.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	level.add_theme_font_size_override("font_size", 12)
-	vbox.add_child(level)
-	
-	var placeholder = Label.new()
-	placeholder.text = "[Más info próximamente]"
-	placeholder.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	placeholder.add_theme_font_size_override("font_size", 10)
-	placeholder.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5, 1.0))
-	vbox.add_child(placeholder)
-	
-	return panel
-
+	var sprite_path = "res://assets/sprites/pokemon/icons/" + card.pokemon_data.get("id", "1") + ".png"
+	$CanvasLayer/InfoPanel/Info/PokemonIcon.texture = load(sprite_path)
+	var parseid = parse_pokemon_id(card.pokemon_data.get("id", "1"))
+	$CanvasLayer/InfoPanel/Info/ID.text = str(parseid["base_id"])
+	$CanvasLayer/InfoPanel/Info/Pokemon.text = full_data["name"]
+	$CanvasLayer/InfoPanel/Info/PokemonIcon/Type/TypeLabel.text = Translator.translate_type(full_data["type"],TranslationServer.get_locale())
+	var type_style = Functions.set_type_color(full_data["type"])
+	$CanvasLayer/InfoPanel/Info/PokemonIcon/Type.add_theme_stylebox_override("panel", type_style)
+	if int(parseid["form_id"]) > 0:
+		$CanvasLayer/InfoPanel/Info/Form.show()
+		$CanvasLayer/InfoPanel/Info/Form.text = full_data["form_name"]
+	else:
+		$CanvasLayer/InfoPanel/Info/Form.hide()
+	var pokemon_info = UserData.obtain_full_pokemon(card.pokemon_index)
+	var level = pokemon_info.get("level", 1)
+	$CanvasLayer/InfoPanel/Info/AttckPanel/int.text = str(calculate_attack_stat(full_data["base_atk"],full_data["max_atk"],level))
+	$CanvasLayer/InfoPanel/Info/SkillPanel/Label.text = full_data["skill"]
+func calculate_attack_stat(base_atk: int, max_atk: int, level: int) -> int:
+	var max_level = 10
+	var atk_per_level = float(max_atk - base_atk) / (max_level - 1)
+	var current_atk = base_atk + int(atk_per_level * (level - 1))
+	return current_atk
 func get_card_from_container(container: Control) -> PokemonCard:
 	"""Obtiene la PokemonCard de un contenedor de forma segura"""
 	for child in container.get_children():

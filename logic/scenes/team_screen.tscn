@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cbclw54tohhi1"]
+[gd_scene load_steps=51 format=3 uid="uid://cbclw54tohhi1"]
 
 [ext_resource type="Texture2D" uid="uid://iej82v3b38oa" path="res://assets/sprites/ui/PkTeamScreenBg.png" id="1_abqx6"]
 [ext_resource type="Script" uid="uid://dxu1wsb3umtr" path="res://logic/scripts/team_ui/team_screen.gd" id="1_j3h4g"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://upavo37gbyhi" path="res://assets/sprites/ui/search_sign.png" id="3_cblry"]
 [ext_resource type="Texture2D" uid="uid://dgvqi1vm8l16o" path="res://assets/sprites/ui/bag_icon.png" id="4_dkk31"]
 [ext_resource type="Texture2D" uid="uid://buia0f6cxpiqj" path="res://assets/sprites/ui/superefective.png" id="5_6eg1b"]
+[ext_resource type="Texture2D" uid="uid://kjjwn3v0emhv" path="res://assets/sprites/pokemon/icons/40-shiny.png" id="7_j3h4g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3h4g"]
 bg_color = Color(1, 1, 1, 1)
@@ -247,6 +248,70 @@ font_size = 31
 font_color = Color(0, 0, 0, 1)
 outline_size = 8
 
+[sub_resource type="LabelSettings" id="LabelSettings_ex45w"]
+font_size = 50
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qyx1"]
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5outw"]
+bg_color = Color(0.27617887, 0.6932262, 0.47145414, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="Theme" id="Theme_7ogy6"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_7qyx1")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_5outw")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnmtu"]
+bg_color = Color(0.8, 1, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="Theme" id="Theme_4wh6h"]
+Panel/styles/panel = SubResource("StyleBoxFlat_tnmtu")
+
+[sub_resource type="LabelSettings" id="LabelSettings_il4vr"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j3h4g"]
+font_size = 40
+outline_size = 13
+outline_color = Color(0.33333334, 0.08627451, 0.29803923, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bd12t"]
+font_size = 25
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixajc"]
+bg_color = Color(1, 0.93333334, 0.8666667, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id="Theme_wvo1d"]
+Panel/styles/panel = SubResource("StyleBoxFlat_ixajc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ogy6"]
+font_size = 23
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4wh6h"]
+font_size = 14
+font_color = Color(0, 0, 0, 1)
+
 [node name="TeamScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -256,35 +321,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j3h4g")
 
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+
+[node name="BG" type="TextureRect" parent="BG"]
+layout_mode = 0
+offset_left = -120.0
+offset_right = 880.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+flip_h = true
+
+[node name="BG2" type="TextureRect" parent="BG"]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+
+[node name="BG" type="TextureRect" parent="BG/BG2"]
+layout_mode = 0
+offset_left = -120.0
+offset_right = 880.0
+offset_bottom = 1524.0
+texture = ExtResource("1_abqx6")
+flip_h = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
-
-[node name="BG" type="TextureRect" parent="CanvasLayer"]
-offset_right = 1000.0
-offset_bottom = 1524.0
-texture = ExtResource("1_abqx6")
-
-[node name="BG" type="TextureRect" parent="CanvasLayer/BG"]
-layout_mode = 0
-offset_left = -120.0
-offset_right = 880.0
-offset_bottom = 1524.0
-texture = ExtResource("1_abqx6")
-flip_h = true
-
-[node name="BG2" type="TextureRect" parent="CanvasLayer/BG"]
-layout_mode = 0
-offset_right = 1000.0
-offset_bottom = 1524.0
-texture = ExtResource("1_abqx6")
-
-[node name="BG" type="TextureRect" parent="CanvasLayer/BG/BG2"]
-layout_mode = 0
-offset_left = -120.0
-offset_right = 880.0
-offset_bottom = 1524.0
-texture = ExtResource("1_abqx6")
-flip_h = true
 
 [node name="BackButton" type="Button" parent="CanvasLayer"]
 offset_left = 33.0
@@ -429,7 +495,7 @@ offset_right = 720.0
 offset_bottom = 506.0
 theme = SubResource("Theme_cyw8r")
 
-[node name="Label" type="Label" parent="CanvasLayer/InfoPanel"]
+[node name="NoSelectedText" type="Label" parent="CanvasLayer/InfoPanel"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 168.0
@@ -441,6 +507,164 @@ para seleccionarlos"
 label_settings = SubResource("LabelSettings_abqx6")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Info" type="Control" parent="CanvasLayer/InfoPanel"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PokemonIcon" type="TextureRect" parent="CanvasLayer/InfoPanel/Info"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 188.0
+offset_right = 270.0
+offset_bottom = 455.0
+texture = ExtResource("7_j3h4g")
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer/InfoPanel/Info/PokemonIcon"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 231.0
+offset_right = 233.0
+offset_bottom = 281.0
+text = "00"
+label_settings = SubResource("LabelSettings_ex45w")
+horizontal_alignment = 2
+
+[node name="LevelLabel2" type="Label" parent="CanvasLayer/InfoPanel/Info/PokemonIcon"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 229.0
+offset_right = 96.0
+offset_bottom = 279.0
+text = "Lv."
+label_settings = SubResource("LabelSettings_ex45w")
+horizontal_alignment = 2
+
+[node name="XPBar" type="ProgressBar" parent="CanvasLayer/InfoPanel/Info/PokemonIcon"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 280.0
+offset_right = 234.0
+offset_bottom = 297.0
+theme = SubResource("Theme_7ogy6")
+show_percentage = false
+
+[node name="Type" type="Panel" parent="CanvasLayer/InfoPanel/Info/PokemonIcon"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = -2.0
+offset_right = 203.0
+offset_bottom = 20.0
+theme = SubResource("Theme_4wh6h")
+
+[node name="TypeLabel" type="Label" parent="CanvasLayer/InfoPanel/Info/PokemonIcon/Type"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 144.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Ice"
+label_settings = SubResource("LabelSettings_il4vr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ID" type="Label" parent="CanvasLayer/InfoPanel/Info"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = 20.0
+offset_right = 139.0
+offset_bottom = 91.0
+text = "0000"
+label_settings = SubResource("LabelSettings_j3h4g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pokemon" type="Label" parent="CanvasLayer/InfoPanel/Info"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 20.0
+offset_right = 386.0
+offset_bottom = 91.0
+text = "Unknown "
+label_settings = SubResource("LabelSettings_j3h4g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Form" type="Label" parent="CanvasLayer/InfoPanel/Info"]
+visible = false
+layout_mode = 0
+offset_left = 397.0
+offset_top = 8.0
+offset_right = 707.0
+offset_bottom = 79.0
+text = "Form Name"
+label_settings = SubResource("LabelSettings_bd12t")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="AttckPanel" type="Panel" parent="CanvasLayer/InfoPanel/Info"]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 255.0
+offset_right = 690.0
+offset_bottom = 295.0
+theme = SubResource("Theme_wvo1d")
+
+[node name="Label" type="Label" parent="CanvasLayer/InfoPanel/Info/AttckPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 7.0
+offset_right = 95.0
+offset_bottom = 31.0
+text = "Attack"
+label_settings = SubResource("LabelSettings_7ogy6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="int" type="Label" parent="CanvasLayer/InfoPanel/Info/AttckPanel"]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 7.0
+offset_right = 326.0
+offset_bottom = 31.0
+text = "000"
+label_settings = SubResource("LabelSettings_7ogy6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillPanel" type="Panel" parent="CanvasLayer/InfoPanel/Info"]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 303.0
+offset_right = 690.0
+offset_bottom = 426.0
+theme = SubResource("Theme_wvo1d")
+
+[node name="Label" type="Label" parent="CanvasLayer/InfoPanel/Info/SkillPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 7.0
+offset_right = 95.0
+offset_bottom = 31.0
+text = "No skill or Unknown"
+label_settings = SubResource("LabelSettings_7ogy6")
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="CanvasLayer/InfoPanel/Info/SkillPanel"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 40.0
+offset_right = 305.0
+offset_bottom = 114.0
+text = "I don't have any skill programmed so,
+this description is just a test. Amazing,
+truly amazing... Really amazing... It is
+like magic or something like that..."
+label_settings = SubResource("LabelSettings_4wh6h")
 
 [node name="PokemonTeam" type="TextureRect" parent="CanvasLayer"]
 offset_left = 119.0
@@ -469,5 +693,11 @@ offset_bottom = 1120.0
 
 [node name="PokemonGrid" type="GridContainer" parent="CanvasLayer/ScrollContainer"]
 layout_mode = 2
+
+[node name="DragPreview" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="button_down" from="CanvasLayer/BackButton" to="." method="_on_back_button_button_down"]
