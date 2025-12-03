@@ -5,18 +5,7 @@
     "base_atk": 40,
     "max_atk": 60,
     "skill": "powerof4",
-    "flags": [],
-    "forms": {
-      "1": {
-        "name": "Bulbasaur",
-        "form_name":"Winking",
-        "type": "dark",
-        "base_atk": 40,
-        "max_atk": 60,
-        "skill": "blocksmash+",
-        "flags": []
-      }
-    }
+    "flags": []
   },
   "2": {
     "name": "Ivysaur",
@@ -40,17 +29,7 @@
     "base_atk": 50,
     "max_atk": 70,
     "skill": "powerof4",
-    "flags": [],
-    "forms": {
-      "1": {
-        "name": "Winking",
-        "type": "fire",
-        "base_atk": 50,
-        "max_atk": 70,
-        "skill": "blocksmash",
-        "flags": []
-      }
-    }
+    "flags": []
   },
   "5": {
     "name": "Charmeleon",
@@ -74,17 +53,7 @@
     "base_atk": 40,
     "max_atk": 60,
     "skill": "powerof4",
-    "flags": [],
-    "forms": {
-      "1": {
-        "name": "Winking",
-        "type": "water",
-        "base_atk": 40,
-        "max_atk": 60,
-        "skill": "blocksmash+",
-        "flags": []
-      }
-    }
+    "flags": []
   },
   "8": {
     "name": "Wartortle",
@@ -109,5 +78,3634 @@
     "max_atk": 50,
     "skill": "quirky+",
     "flags": []
+  },
+  "11": {
+    "name": "Metapod",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "harden",
+    "flags": []
+  },
+  "12": {
+    "name": "Butterfree",
+    "type": "bug",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mindzap",
+    "flags": []
+  },
+  "13": {
+    "name": "Weedle",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "poisonpact",
+    "flags": []
+  },
+  "14": {
+    "name": "Kakuna",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "harden",
+    "flags": []
+  },
+  "15": {
+    "name": "Beedrill",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "swap",
+    "flags": ["mega"]
+  },
+  "16": {
+    "name": "Pidgey",
+    "type": "flying",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "flap",
+    "flags": []
+  },
+  "17": {
+    "name": "Pidgeotto",
+    "type": "flying",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "flap",
+    "flags": []
+  },
+  "18": {
+    "name": "Pidgeot",
+    "type": "flying",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "skyblast",
+    "flags": ["mega"]
+  },
+  "19": {
+    "name": "Rattata",
+    "type": "normal",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "powerof4",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Rattata",
+        "form_name": "Alola",
+        "type": "dark",
+        "base_atk": 30,
+        "max_atk": 50,
+        "skill": "powerof4",
+        "flags": []
+      }
+    }
+  },
+  "20": {
+    "name": "Raticate",
+    "type": "normal",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "superbolt",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Raticate",
+        "form_name": "Alola",
+        "type": "dark",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "darkmatter",
+        "flags": []
+      }
+    }
+  },
+  "21": {
+    "name": "Spearow",
+    "type": "flying",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "flap",
+    "flags": []
+  },
+  "22": {
+    "name": "Fearow",
+    "type": "flying",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "skyblast",
+    "flags": []
+  },
+  "23": {
+    "name": "Ekans",
+    "type": "poison",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "poisonpact",
+    "flags": []
+  },
+  "24": {
+    "name": "Arbok",
+    "type": "poison",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "poison",
+    "flags": []
+  },
+  "25": {
+    "name": "Pikachu",
+    "type": "electric",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "powerof5",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Pikachu",
+        "form_name": "Angry",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "t-boost",
+        "flags": []
+      },
+      "2": {
+        "name": "Pikachu",
+        "form_name": "Happy",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost+",
+        "flags": []
+      },
+      "3": {
+        "name": "Pikachu",
+        "form_name": "Winking",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "eject+",
+        "flags": []
+      },
+      "4": {
+        "name": "Pikachu",
+        "form_name": "Sleeping",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "sleep-charm",
+        "flags": []
+      },
+      "5": {
+        "name": "Pikachu",
+        "form_name": "Ponytail",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "swap+",
+        "flags": []
+      },
+      "6": {
+        "name": "Pikachu",
+        "form_name": "PopStar",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost+",
+        "flags": []
+      },
+      "7": {
+        "name": "Pikachu",
+        "form_name": "RockStar",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost+",
+        "flags": []
+      },
+      "8": {
+        "name": "Pikachu",
+        "form_name": "Belle",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost+",
+        "flags": []
+      },
+      "9": {
+        "name": "Pikachu",
+        "form_name": "PhD",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost+",
+        "flags": []
+      },
+      "10": {
+        "name": "Pikachu",
+        "form_name": "Libre",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost+",
+        "flags": []
+      }
+    }
+  },
+  "26": {
+    "name": "Raichu",
+    "type": "electric",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "powerof5",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Raichu",
+        "form_name": "Alola",
+        "type": "psychic",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "mindzap",
+        "flags": []
+      }
+    }
+  },
+  "27": {
+    "name": "Sandshrew",
+    "type": "ground",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "rockbreak",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Sandshrew",
+        "form_name": "Alola",
+        "type": "ice",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "rockbreak",
+        "flags": []
+      }
+    }
+  },
+  "28": {
+    "name": "Sandslash",
+    "type": "ground",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "counterattack",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Sandslash",
+        "form_name": "Alola",
+        "type": "ice",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "freezeplus",
+        "flags": []
+      }
+    }
+  },
+  "29": {
+    "name": "Nidoran♀",
+    "type": "poison",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "poisonpact",
+    "flags": []
+  },
+  "30": {
+    "name": "Nidorina",
+    "type": "poison",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "megaboost",
+    "flags": []
+  },
+  "31": {
+    "name": "Nidoqueen",
+    "type": "poison",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap+",
+    "flags": []
+  },
+  "32": {
+    "name": "Nidoran♂",
+    "type": "poison",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "poisonpact",
+    "flags": []
+  },
+  "33": {
+    "name": "Nidorino",
+    "type": "poison",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "megaboost",
+    "flags": []
+  },
+  "34": {
+    "name": "Nidoking",
+    "type": "poison",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap+",
+    "flags": []
+  },
+  "35": {
+    "name": "Clefairy",
+    "type": "fairy",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "36": {
+    "name": "Clefable",
+    "type": "fairy",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "37": {
+    "name": "Vulpix",
+    "type": "fire",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "burn",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Vulpix",
+        "form_name": "Alola",
+        "type": "ice",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "freeze",
+        "flags": []
+      }
+    }
+  },
+  "38": {
+    "name": "Ninetales",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "burn+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Ninetales",
+        "form_name": "Alola",
+        "type": "ice",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "freeze+",
+        "flags": []
+      }
+    }
+  },
+  "39": {
+    "name": "Jigglypuff",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "40": {
+    "name": "Wigglytuff",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "41": {
+    "name": "Zubat",
+    "type": "poison",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "flap",
+    "flags": []
+  },
+  "42": {
+    "name": "Golbat",
+    "type": "poison",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "skyblast",
+    "flags": []
+  },
+  "43": {
+    "name": "Oddish",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "paralyze",
+    "flags": []
+  },
+  "44": {
+    "name": "Gloom",
+    "type": "grass",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "megaboost",
+    "flags": []
+  },
+  "45": {
+    "name": "Vileplume",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap+",
+    "flags": []
+  },
+  "46": {
+    "name": "Paras",
+    "type": "bug",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "paralyze",
+    "flags": []
+  },
+  "47": {
+    "name": "Parasect",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "swap",
+    "flags": []
+  },
+  "48": {
+    "name": "Venonat",
+    "type": "bug",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "sleepcharm",
+    "flags": []
+  },
+  "49": {
+    "name": "Venomoth",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "poison",
+    "flags": []
+  },
+  "50": {
+    "name": "Diglett",
+    "type": "ground",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "rockbreak",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Diglett",
+        "form_name": "Alola",
+        "type": "steel",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "rockbreak",
+        "flags": []
+      }
+    }
+  },
+  "51": {
+    "name": "Dugtrio",
+    "type": "ground",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rockbreak+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Dugtrio",
+        "form_name": "Alola",
+        "type": "steel",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "rockbreak+",
+        "flags": []
+      }
+    }
+  },
+  "52": {
+    "name": "Meowth",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Meowth",
+        "form_name": "Alola",
+        "type": "dark",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost",
+        "flags": []
+      },
+      "2": {
+        "name": "Meowth",
+        "form_name": "Galar",
+        "type": "steel",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "53": {
+    "name": "Persian",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Persian",
+        "form_name": "Alola",
+        "type": "dark",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "darkmatter",
+        "flags": []
+      }
+    }
+  },
+  "54": {
+    "name": "Psyduck",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "rockbreak",
+    "flags": []
+  },
+  "55": {
+    "name": "Golduck",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rockbreak+",
+    "flags": []
+  },
+  "56": {
+    "name": "Mankey",
+    "type": "fighting",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "57": {
+    "name": "Primeape",
+    "type": "fighting",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "hitting-streak",
+    "flags": []
+  },
+  "58": {
+    "name": "Growlithe",
+    "type": "fire",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "burn",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Growlithe",
+        "form_name": "Hisui",
+        "type": "rock",
+        "base_atk": 50,
+        "max_atk": 70,
+        "skill": "rockbreak+",
+        "flags": []
+      }
+    }
+  },
+  "59": {
+    "name": "Arcanine",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "powerof5+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Arcanine",
+        "form_name": "Hisui",
+        "type": "rock",
+        "base_atk": 80,
+        "max_atk": 100,
+        "skill": "rockbreak++",
+        "flags": []
+      }
+    }
+  },
+  "60": {
+    "name": "Poliwag",
+    "type": "water",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "rockbreak",
+    "flags": []
+  },
+  "61": {
+    "name": "Poliwhirl",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "62": {
+    "name": "Poliwrath",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "eject",
+    "flags": []
+  },
+  "63": {
+    "name": "Abra",
+    "type": "psychic",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "64": {
+    "name": "Kadabra",
+    "type": "psychic",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "65": {
+    "name": "Alakazam",
+    "type": "psychic",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": ["mega"]
+  },
+  "66": {
+    "name": "Machop",
+    "type": "fighting",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "rockbreak",
+    "flags": []
+  },
+  "67": {
+    "name": "Machoke",
+    "type": "fighting",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "68": {
+    "name": "Machamp",
+    "type": "fighting",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "eject",
+    "flags": []
+  },
+  "69": {
+    "name": "Bellsprout",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "paralyze",
+    "flags": []
+  },
+  "70": {
+    "name": "Weepinbell",
+    "type": "grass",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "71": {
+    "name": "Victreebel",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap+",
+    "flags": []
+  },
+  "72": {
+    "name": "Tentacool",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "poisonpact",
+    "flags": []
+  },
+  "73": {
+    "name": "Tentacruel",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "poison",
+    "flags": []
+  },
+  "74": {
+    "name": "Geodude",
+    "type": "ground",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "rockbreak",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Geodude",
+        "form_name": "Alola",
+        "type": "electric",
+        "base_atk": 50,
+        "max_atk": 70,
+        "skill": "rockbreak",
+        "flags": []
+      }
+    }
+  },
+  "75": {
+    "name": "Graveler",
+    "type": "ground",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Graveler",
+        "form_name": "Alola",
+        "type": "electric",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "76": {
+    "name": "Golem",
+    "type": "ground",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "quake",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Golem",
+        "form_name": "Alola",
+        "type": "electric",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "rockbreak++",
+        "flags": []
+      }
+    }
+  },
+  "77": {
+    "name": "Ponyta",
+    "type": "fire",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Ponyta",
+        "form_name": "Galar",
+        "type": "psychic",
+        "base_atk": 50,
+        "max_atk": 70,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "78": {
+    "name": "Rapidash",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "hitting-streak",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Rapidash",
+        "form_name": "Galar",
+        "type": "psychic",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "mindzap",
+        "flags": []
+      }
+    }
+  },
+  "79": {
+    "name": "Slowpoke",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Slowpoke",
+        "form_name": "Galar",
+        "type": "psychic",
+        "base_atk": 50,
+        "max_atk": 70,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "80": {
+    "name": "Slowbro",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": ["mega"],
+    "forms": {
+      "1": {
+        "name": "Slowbro",
+        "form_name": "Galar",
+        "type": "poison",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "poison",
+        "flags": []
+      }
+    }
+  },
+  "81": {
+    "name": "Magnemite",
+    "type": "electric",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "paralyze",
+    "flags": []
+  },
+  "82": {
+    "name": "Magneton",
+    "type": "electric",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "paralyze+",
+    "flags": []
+  },
+  "83": {
+    "name": "Farfetch'd",
+    "type": "normal",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "quirky",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Farfetch'd",
+        "form_name": "Galar",
+        "type": "fighting",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "counterattack",
+        "flags": []
+      }
+    }
+  },
+  "84": {
+    "name": "Doduo",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "flap",
+    "flags": []
+  },
+  "85": {
+    "name": "Dodrio",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "skyblast",
+    "flags": []
+  },
+  "86": {
+    "name": "Seel",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "87": {
+    "name": "Dewgong",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "88": {
+    "name": "Grimer",
+    "type": "poison",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "poison",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Grimer",
+        "form_name": "Alola",
+        "type": "poison",
+        "base_atk": 50,
+        "max_atk": 70,
+        "skill": "poison",
+        "flags": []
+      }
+    }
+  },
+  "89": {
+    "name": "Muk",
+    "type": "poison",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "poison+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Muk",
+        "form_name": "Alola",
+        "type": "poison",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "poison+",
+        "flags": []
+      }
+    }
+  },
+  "90": {
+    "name": "Shellder",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "91": {
+    "name": "Cloyster",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "92": {
+    "name": "Gastly",
+    "type": "ghost",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "shadowdance",
+    "flags": []
+  },
+  "93": {
+    "name": "Haunter",
+    "type": "ghost",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "94": {
+    "name": "Gengar",
+    "type": "ghost",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "powerof5",
+    "flags": ["mega"]
+  },
+  "95": {
+    "name": "Onix",
+    "type": "ground",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rockbreak+",
+    "flags": []
+  },
+  "96": {
+    "name": "Drowzee",
+    "type": "psychic",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "sleepcharm",
+    "flags": []
+  },
+  "97": {
+    "name": "Hypno",
+    "type": "psychic",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "sleepcharm",
+    "flags": []
+  },
+  "98": {
+    "name": "Krabby",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "99": {
+    "name": "Kingler",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "100": {
+    "name": "Voltorb",
+    "type": "electric",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Voltorb",
+        "form_name": "Hisui",
+        "type": "electric",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "101": {
+    "name": "Electrode",
+    "type": "electric",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Electrode",
+        "form_name": "Hisui",
+        "type": "electric",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "blocksmash+",
+        "flags": []
+      }
+    }
+  },
+  "102": {
+    "name": "Exeggcute",
+    "type": "grass",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "103": {
+    "name": "Exeggutor",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Exeggutor",
+        "form_name": "Alola",
+        "type": "grass",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "mega-boost+",
+        "flags": []
+      }
+    }
+  },
+  "104": {
+    "name": "Cubone",
+    "type": "ground",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "rockbreak",
+    "flags": []
+  },
+  "105": {
+    "name": "Marowak",
+    "type": "ground",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rockbreak+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Marowak",
+        "form_name": "Alola",
+        "type": "fire",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "burn",
+        "flags": []
+      }
+    }
+  },
+  "106": {
+    "name": "Hitmonlee",
+    "type": "fighting",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "hitting-streak",
+    "flags": []
+  },
+  "107": {
+    "name": "Hitmonchan",
+    "type": "fighting",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "powerof4+",
+    "flags": []
+  },
+  "108": {
+    "name": "Lickitung",
+    "type": "normal",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "eject",
+    "flags": []
+  },
+  "109": {
+    "name": "Koffing",
+    "type": "poison",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "poison",
+    "flags": []
+  },
+  "110": {
+    "name": "Weezing",
+    "type": "poison",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "poison+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Weezing",
+        "form_name": "Galar",
+        "type": "poison",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "poison+",
+        "flags": []
+      }
+    }
+  },
+  "111": {
+    "name": "Rhyhorn",
+    "type": "ground",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rockbreak",
+    "flags": []
+  },
+  "112": {
+    "name": "Rhydon",
+    "type": "ground",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rockbreak+",
+    "flags": []
+  },
+  "113": {
+    "name": "Chansey",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "114": {
+    "name": "Tangela",
+    "type": "grass",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "constrict",
+    "flags": []
+  },
+  "115": {
+    "name": "Kangaskhan",
+    "type": "normal",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": ["mega"]
+  },
+  "116": {
+    "name": "Horsea",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "117": {
+    "name": "Seadra",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "118": {
+    "name": "Goldeen",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "119": {
+    "name": "Seaking",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "120": {
+    "name": "Staryu",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "121": {
+    "name": "Starmie",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "powerof4+",
+    "flags": []
+  },
+  "122": {
+    "name": "Mr. Mime",
+    "type": "psychic",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "barrier-bash+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Mr. Mime",
+        "form_name": "Galar",
+        "type": "ice",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "barrier-bash+",
+        "flags": []
+      }
+    }
+  },
+  "123": {
+    "name": "Scyther",
+    "type": "bug",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap+",
+    "flags": []
+  },
+  "124": {
+    "name": "Jynx",
+    "type": "ice",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "125": {
+    "name": "Electabuzz",
+    "type": "electric",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "126": {
+    "name": "Magmar",
+    "type": "fire",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "127": {
+    "name": "Pinsir",
+    "type": "bug",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "powerof4+",
+    "flags": ["mega"]
+  },
+  "128": {
+    "name": "Tauros",
+    "type": "normal",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "block-smash",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Tauros",
+        "form_name": "Paldea Combat",
+        "type": "fighting",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "rockbreak+",
+        "flags": []
+      },
+      "2": {
+        "name": "Tauros",
+        "form_name": "Paldea Blaze",
+        "type": "fighting",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "burn",
+        "flags": []
+      },
+      "3": {
+        "name": "Tauros",
+        "form_name": "Paldea Aqua",
+        "type": "fighting",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "rockbreak+",
+        "flags": []
+      }
+    }
+  },
+  "129": {
+    "name": "Magikarp",
+    "type": "water",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "flail",
+    "flags": []
+  },
+  "130": {
+    "name": "Gyarados",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "powerof5+",
+    "flags": ["mega"]
+  },
+  "131": {
+    "name": "Lapras",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "powerof4+",
+    "flags": []
+  },
+  "132": {
+    "name": "Ditto",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "transform",
+    "flags": []
+  },
+  "133": {
+    "name": "Eevee",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Eevee",
+        "form_name": "Winking",
+        "type": "normal",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "eject+",
+        "flags": []
+      },
+      "2": {
+        "name": "Eevee",
+        "form_name": "Spooky",
+        "type": "normal",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "sleep-charm",
+        "flags": []
+      }
+    }
+  },
+  "134": {
+    "name": "Vaporeon",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "135": {
+    "name": "Jolteon",
+    "type": "electric",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "136": {
+    "name": "Flareon",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "137": {
+    "name": "Porygon",
+    "type": "normal",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "138": {
+    "name": "Omanyte",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "rockbreak",
+    "flags": []
+  },
+  "139": {
+    "name": "Omastar",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rockbreak+",
+    "flags": []
+  },
+  "140": {
+    "name": "Kabuto",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "rockbreak",
+    "flags": []
+  },
+  "141": {
+    "name": "Kabutops",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rockbreak+",
+    "flags": []
+  },
+  "142": {
+    "name": "Aerodactyl",
+    "type": "flying",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "powerof5",
+    "flags": ["mega"]
+  },
+  "143": {
+    "name": "Snorlax",
+    "type": "normal",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "eject",
+    "flags": []
+  },
+  "144": {
+    "name": "Articuno",
+    "type": "ice",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "powerof5+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Articuno",
+        "form_name": "Galar",
+        "type": "psychic",
+        "base_atk": 80,
+        "max_atk": 100,
+        "skill": "mindzap",
+        "flags": []
+      }
+    }
+  },
+  "145": {
+    "name": "Zapdos",
+    "type": "electric",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "powerof5+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Zapdos",
+        "form_name": "Galar",
+        "type": "fighting",
+        "base_atk": 80,
+        "max_atk": 100,
+        "skill": "hitting-streak",
+        "flags": []
+      }
+    }
+  },
+  "146": {
+    "name": "Moltres",
+    "type": "fire",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "powerof5+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Moltres",
+        "form_name": "Galar",
+        "type": "dark",
+        "base_atk": 80,
+        "max_atk": 100,
+        "skill": "darkmatter",
+        "flags": []
+      }
+    }
+  },
+  "147": {
+    "name": "Dratini",
+    "type": "dragon",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "dragon-talon",
+    "flags": []
+  },
+  "148": {
+    "name": "Dragonair",
+    "type": "dragon",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "149": {
+    "name": "Dragonite",
+    "type": "dragon",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "dancing-dragons",
+    "flags": []
+  },
+  "150": {
+    "name": "Mewtwo",
+    "type": "psychic",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "swap++",
+    "flags": ["mega"]
+  },
+  "151": {
+    "name": "Mew",
+    "type": "psychic",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "powerof4",
+    "flags": []
+  },
+  "152": {
+    "name": "Chikorita",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "153": {
+    "name": "Bayleef",
+    "type": "grass",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "154": {
+    "name": "Meganium",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "block-smash+",
+    "flags": []
+  },
+  "155": {
+    "name": "Cyndaquil",
+    "type": "fire",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "156": {
+    "name": "Quilava",
+    "type": "fire",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "157": {
+    "name": "Typhlosion",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "final-effort",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Typhlosion",
+        "form_name": "Hisui",
+        "type": "fire",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "burn+",
+        "flags": []
+      }
+    }
+  },
+  "158": {
+    "name": "Totodile",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "159": {
+    "name": "Croconaw",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "160": {
+    "name": "Feraligatr",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "power-of-5+",
+    "flags": []
+  },
+  "161": {
+    "name": "Sentret",
+    "type": "normal",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "162": {
+    "name": "Furret",
+    "type": "normal",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "163": {
+    "name": "Hoothoot",
+    "type": "flying",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "flap",
+    "flags": []
+  },
+  "164": {
+    "name": "Noctowl",
+    "type": "flying",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "skyblast",
+    "flags": []
+  },
+  "165": {
+    "name": "Ledyba",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "166": {
+    "name": "Ledian",
+    "type": "bug",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "167": {
+    "name": "Spinarak",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "constrict",
+    "flags": []
+  },
+  "168": {
+    "name": "Ariados",
+    "type": "bug",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "power-of-4",
+    "flags": []
+  },
+  "169": {
+    "name": "Crobat",
+    "type": "poison",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "skyblast",
+    "flags": []
+  },
+  "170": {
+    "name": "Chinchou",
+    "type": "electric",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "171": {
+    "name": "Lanturn",
+    "type": "electric",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "172": {
+    "name": "Pichu",
+    "type": "electric",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "173": {
+    "name": "Cleffa",
+    "type": "fairy",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "174": {
+    "name": "Igglybuff",
+    "type": "normal",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "175": {
+    "name": "Togepi",
+    "type": "fairy",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "176": {
+    "name": "Togetic",
+    "type": "fairy",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "177": {
+    "name": "Natu",
+    "type": "psychic",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "prank",
+    "flags": []
+  },
+  "178": {
+    "name": "Xatu",
+    "type": "psychic",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "swap",
+    "flags": []
+  },
+  "179": {
+    "name": "Mareep",
+    "type": "electric",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "180": {
+    "name": "Flaaffy",
+    "type": "electric",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "181": {
+    "name": "Ampharos",
+    "type": "electric",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rock-break+",
+    "flags": ["mega"]
+  },
+  "182": {
+    "name": "Bellossom",
+    "type": "grass",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "183": {
+    "name": "Marill",
+    "type": "water",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "eject",
+    "flags": []
+  },
+  "184": {
+    "name": "Azumarill",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "eject+",
+    "flags": []
+  },
+  "185": {
+    "name": "Sudowoodo",
+    "type": "rock",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "186": {
+    "name": "Politoed",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "187": {
+    "name": "Hoppip",
+    "type": "grass",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "188": {
+    "name": "Skiploom",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "189": {
+    "name": "Jumpluff",
+    "type": "grass",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "190": {
+    "name": "Aipom",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "191": {
+    "name": "Sunkern",
+    "type": "grass",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "192": {
+    "name": "Sunflora",
+    "type": "grass",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "193": {
+    "name": "Yanma",
+    "type": "bug",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "swap",
+    "flags": []
+  },
+  "194": {
+    "name": "Wooper",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Wooper",
+        "form_name": "Paldea",
+        "type": "poison",
+        "base_atk": 40,
+        "max_atk": 60,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "195": {
+    "name": "Quagsire",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "eject",
+    "flags": []
+  },
+  "196": {
+    "name": "Espeon",
+    "type": "psychic",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "197": {
+    "name": "Umbreon",
+    "type": "dark",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "198": {
+    "name": "Murkrow",
+    "type": "dark",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "199": {
+    "name": "Slowking",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Slowking",
+        "form_name": "Galar",
+        "type": "poison",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "poison+",
+        "flags": []
+      }
+    }
+  },
+  "200": {
+    "name": "Misdreavus",
+    "type": "ghost",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "201": {
+    "name": "Unown",
+    "type": "psychic",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "quirky",
+    "flags": []
+  },
+  "202": {
+    "name": "Wobbuffet",
+    "type": "psychic",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "counterattack",
+    "flags": []
+  },
+  "203": {
+    "name": "Girafarig",
+    "type": "psychic",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "204": {
+    "name": "Pineco",
+    "type": "bug",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "rock-break",
+    "flags": []
+  },
+  "205": {
+    "name": "Forretress",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "206": {
+    "name": "Dunsparce",
+    "type": "normal",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "207": {
+    "name": "Gligar",
+    "type": "ground",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "208": {
+    "name": "Steelix",
+    "type": "steel",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "block-smash+",
+    "flags": ["mega"]
+  },
+  "209": {
+    "name": "Snubbull",
+    "type": "fairy",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "210": {
+    "name": "Granbull",
+    "type": "fairy",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "211": {
+    "name": "Qwilfish",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "poison",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Qwilfish",
+        "form_name": "Hisui",
+        "type": "dark",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "poison",
+        "flags": []
+      }
+    }
+  },
+  "212": {
+    "name": "Scizor",
+    "type": "bug",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "swap++",
+    "flags": ["mega"]
+  },
+  "213": {
+    "name": "Shuckle",
+    "type": "bug",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "risk-taker",
+    "flags": []
+  },
+  "214": {
+    "name": "Heracross",
+    "type": "bug",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost",
+    "flags": ["mega"]
+  },
+  "215": {
+    "name": "Sneasel",
+    "type": "dark",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Sneasel",
+        "form_name": "Hisui",
+        "type": "fighting",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "216": {
+    "name": "Teddiursa",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "217": {
+    "name": "Ursaring",
+    "type": "normal",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "218": {
+    "name": "Slugma",
+    "type": "fire",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "219": {
+    "name": "Magcargo",
+    "type": "fire",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "220": {
+    "name": "Swinub",
+    "type": "ice",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "221": {
+    "name": "Piloswine",
+    "type": "ice",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "222": {
+    "name": "Corsola",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Corsola",
+        "form_name": "Galar",
+        "type": "ghost",
+        "base_atk": 50,
+        "max_atk": 70,
+        "skill": "shadow-dance",
+        "flags": []
+      }
+    }
+  },
+  "223": {
+    "name": "Remoraid",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "224": {
+    "name": "Octillery",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "225": {
+    "name": "Delibird",
+    "type": "ice",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "226": {
+    "name": "Mantine",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "227": {
+    "name": "Skarmory",
+    "type": "steel",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "block-smash",
+    "flags": []
+  },
+  "228": {
+    "name": "Houndour",
+    "type": "dark",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "229": {
+    "name": "Houndoom",
+    "type": "dark",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "risk-taker",
+    "flags": ["mega"]
+  },
+  "230": {
+    "name": "Kingdra",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "231": {
+    "name": "Phanpy",
+    "type": "ground",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "232": {
+    "name": "Donphan",
+    "type": "ground",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "quake",
+    "flags": []
+  },
+  "233": {
+    "name": "Porygon2",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "234": {
+    "name": "Stantler",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "235": {
+    "name": "Smeargle",
+    "type": "normal",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "quirky+",
+    "flags": []
+  },
+  "236": {
+    "name": "Tyrogue",
+    "type": "fighting",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "237": {
+    "name": "Hitmontop",
+    "type": "fighting",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "hitting-streak",
+    "flags": []
+  },
+  "238": {
+    "name": "Smoochum",
+    "type": "ice",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "239": {
+    "name": "Elekid",
+    "type": "electric",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "240": {
+    "name": "Magby",
+    "type": "fire",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "241": {
+    "name": "Miltank",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "242": {
+    "name": "Blissey",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "243": {
+    "name": "Raikou",
+    "type": "electric",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "barrier-bash+",
+    "flags": []
+  },
+  "244": {
+    "name": "Entei",
+    "type": "fire",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "barrier-bash+",
+    "flags": []
+  },
+  "245": {
+    "name": "Suicune",
+    "type": "water",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "barrier-bash+",
+    "flags": []
+  },
+  "246": {
+    "name": "Larvitar",
+    "type": "rock",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "247": {
+    "name": "Pupitar",
+    "type": "rock",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "248": {
+    "name": "Tyranitar",
+    "type": "rock",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "eject++",
+    "flags": ["mega"]
+  },
+  "249": {
+    "name": "Lugia",
+    "type": "psychic",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "barrier-bash++",
+    "flags": []
+  },
+  "250": {
+    "name": "Ho-Oh",
+    "type": "fire",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "pyre",
+    "flags": []
+  },
+  "251": {
+    "name": "Celebi",
+    "type": "psychic",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "cheer",
+    "flags": []
+  },
+  "252": {
+    "name": "Treecko",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "253": {
+    "name": "Grovyle",
+    "type": "grass",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "254": {
+    "name": "Sceptile",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "power-of-5+",
+    "flags": ["mega"]
+  },
+  "255": {
+    "name": "Torchic",
+    "type": "fire",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "256": {
+    "name": "Combusken",
+    "type": "fire",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "257": {
+    "name": "Blaziken",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "hitting-streak",
+    "flags": ["mega"]
+  },
+  "258": {
+    "name": "Mudkip",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "259": {
+    "name": "Marshtomp",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "260": {
+    "name": "Swampert",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "eject+",
+    "flags": ["mega"]
+  },
+  "261": {
+    "name": "Poochyena",
+    "type": "dark",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "262": {
+    "name": "Mightyena",
+    "type": "dark",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "263": {
+    "name": "Zigzagoon",
+    "type": "normal",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Zigzagoon",
+        "form_name": "Galar",
+        "type": "dark",
+        "base_atk": 30,
+        "max_atk": 50,
+        "skill": "mega-boost",
+        "flags": []
+      }
+    }
+  },
+  "264": {
+    "name": "Linoone",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Linoone",
+        "form_name": "Galar",
+        "type": "dark",
+        "base_atk": 60,
+        "max_atk": 80,
+        "skill": "block-smash",
+        "flags": []
+      }
+    }
+  },
+  "265": {
+    "name": "Wurmple",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "266": {
+    "name": "Silcoon",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "267": {
+    "name": "Beautifly",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "268": {
+    "name": "Cascoon",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "269": {
+    "name": "Dustox",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "270": {
+    "name": "Lotad",
+    "type": "water",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "271": {
+    "name": "Lombre",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "272": {
+    "name": "Ludicolo",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "273": {
+    "name": "Seedot",
+    "type": "grass",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "274": {
+    "name": "Nuzleaf",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "275": {
+    "name": "Shiftry",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "hitting-streak",
+    "flags": []
+  },
+  "276": {
+    "name": "Taillow",
+    "type": "flying",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "flap",
+    "flags": []
+  },
+  "277": {
+    "name": "Swellow",
+    "type": "flying",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "skyblast",
+    "flags": []
+  },
+  "278": {
+    "name": "Wingull",
+    "type": "water",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "279": {
+    "name": "Pelipper",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "280": {
+    "name": "Ralts",
+    "type": "psychic",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "281": {
+    "name": "Kirlia",
+    "type": "psychic",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "282": {
+    "name": "Gardevoir",
+    "type": "psychic",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mind-zap",
+    "flags": ["mega"]
+  },
+  "283": {
+    "name": "Surskit",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "284": {
+    "name": "Masquerain",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "eject",
+    "flags": []
+  },
+  "285": {
+    "name": "Shroomish",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "286": {
+    "name": "Breloom",
+    "type": "grass",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "287": {
+    "name": "Slakoth",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "288": {
+    "name": "Vigoroth",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "289": {
+    "name": "Slaking",
+    "type": "normal",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "eject++",
+    "flags": []
+  },
+  "290": {
+    "name": "Nincada",
+    "type": "bug",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "rock-break",
+    "flags": []
+  },
+  "291": {
+    "name": "Ninjask",
+    "type": "bug",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "swap+",
+    "flags": []
+  },
+  "292": {
+    "name": "Shedinja",
+    "type": "bug",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "shadow-dance",
+    "flags": []
+  },
+  "293": {
+    "name": "Whismur",
+    "type": "normal",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "294": {
+    "name": "Loudred",
+    "type": "normal",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "295": {
+    "name": "Exploud",
+    "type": "normal",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "296": {
+    "name": "Makuhita",
+    "type": "fighting",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "297": {
+    "name": "Hariyama",
+    "type": "fighting",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "hitting-streak",
+    "flags": []
+  },
+  "298": {
+    "name": "Azurill",
+    "type": "normal",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "299": {
+    "name": "Nosepass",
+    "type": "rock",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "rock-break",
+    "flags": []
+  },
+  "300": {
+    "name": "Skitty",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "301": {
+    "name": "Delcatty",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "302": {
+    "name": "Sableye",
+    "type": "dark",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "risk-taker",
+    "flags": ["mega"]
+  },
+  "303": {
+    "name": "Mawile",
+    "type": "steel",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "astonish",
+    "flags": ["mega"]
+  },
+  "304": {
+    "name": "Aron",
+    "type": "steel",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "305": {
+    "name": "Lairon",
+    "type": "steel",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "306": {
+    "name": "Aggron",
+    "type": "steel",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "eject+",
+    "flags": ["mega"]
+  },
+  "307": {
+    "name": "Meditite",
+    "type": "fighting",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "308": {
+    "name": "Medicham",
+    "type": "fighting",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mind-zap",
+    "flags": ["mega"]
+  },
+  "309": {
+    "name": "Electrike",
+    "type": "electric",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "310": {
+    "name": "Manectric",
+    "type": "electric",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": ["mega"]
+  },
+  "311": {
+    "name": "Plusle",
+    "type": "electric",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "312": {
+    "name": "Minun",
+    "type": "electric",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "313": {
+    "name": "Volbeat",
+    "type": "bug",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "swarm",
+    "flags": []
+  },
+  "314": {
+    "name": "Illumise",
+    "type": "bug",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "crowd-control",
+    "flags": []
+  },
+  "315": {
+    "name": "Roselia",
+    "type": "grass",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "316": {
+    "name": "Gulpin",
+    "type": "poison",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "317": {
+    "name": "Swalot",
+    "type": "poison",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "318": {
+    "name": "Carvanha",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "319": {
+    "name": "Sharpedo",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": ["mega"]
+  },
+  "320": {
+    "name": "Wailmer",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rock-break",
+    "flags": []
+  },
+  "321": {
+    "name": "Wailord",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "322": {
+    "name": "Numel",
+    "type": "fire",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "323": {
+    "name": "Camerupt",
+    "type": "fire",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "last-ditch-effort",
+    "flags": ["mega"]
+  },
+  "324": {
+    "name": "Torkoal",
+    "type": "fire",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "325": {
+    "name": "Spoink",
+    "type": "psychic",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "326": {
+    "name": "Grumpig",
+    "type": "psychic",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "327": {
+    "name": "Spinda",
+    "type": "normal",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "quirky+",
+    "flags": []
+  },
+  "328": {
+    "name": "Trapinch",
+    "type": "ground",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "329": {
+    "name": "Vibrava",
+    "type": "ground",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "330": {
+    "name": "Flygon",
+    "type": "ground",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "power-of-5+",
+    "flags": []
+  },
+  "331": {
+    "name": "Cacnea",
+    "type": "grass",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "332": {
+    "name": "Cacturne",
+    "type": "grass",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "333": {
+    "name": "Swablu",
+    "type": "flying",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "334": {
+    "name": "Altaria",
+    "type": "flying",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "dancing-dragons",
+    "flags": ["mega"]
+  },
+  "335": {
+    "name": "Zangoose",
+    "type": "normal",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "336": {
+    "name": "Seviper",
+    "type": "poison",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "poison+",
+    "flags": []
+  },
+  "337": {
+    "name": "Lunatone",
+    "type": "psychic",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "barrier-bash+",
+    "flags": []
+  },
+  "338": {
+    "name": "Solrock",
+    "type": "psychic",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "barrier-bash+",
+    "flags": []
+  },
+  "339": {
+    "name": "Barboach",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "340": {
+    "name": "Whiscash",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "341": {
+    "name": "Corphish",
+    "type": "water",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "342": {
+    "name": "Crawdaunt",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "power-of-4+",
+    "flags": []
+  },
+  "343": {
+    "name": "Baltoy",
+    "type": "ground",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "344": {
+    "name": "Claydol",
+    "type": "ground",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "345": {
+    "name": "Lileep",
+    "type": "rock",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "346": {
+    "name": "Cradily",
+    "type": "rock",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "347": {
+    "name": "Anorith",
+    "type": "rock",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "rock-break",
+    "flags": []
+  },
+  "348": {
+    "name": "Armaldo",
+    "type": "rock",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "349": {
+    "name": "Feebas",
+    "type": "water",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "350": {
+    "name": "Milotic",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "351": {
+    "name": "Castform",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "cloud-clear+",
+    "flags": []
+  },
+  "352": {
+    "name": "Kecleon",
+    "type": "normal",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mind-zap",
+    "flags": []
+  },
+  "353": {
+    "name": "Shuppet",
+    "type": "ghost",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "354": {
+    "name": "Banette",
+    "type": "ghost",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "last-ditch-effort",
+    "flags": ["mega"]
+  },
+  "355": {
+    "name": "Duskull",
+    "type": "ghost",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "356": {
+    "name": "Dusclops",
+    "type": "ghost",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "357": {
+    "name": "Tropius",
+    "type": "grass",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "eject",
+    "flags": []
+  },
+  "358": {
+    "name": "Chimecho",
+    "type": "psychic",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "359": {
+    "name": "Absol",
+    "type": "dark",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mind-zap",
+    "flags": ["mega"]
+  },
+  "360": {
+    "name": "Wynaut",
+    "type": "psychic",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "361": {
+    "name": "Snorunt",
+    "type": "ice",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "362": {
+    "name": "Glalie",
+    "type": "ice",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "chill",
+    "flags": ["mega"]
+  },
+  "363": {
+    "name": "Spheal",
+    "type": "ice",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "rock-break",
+    "flags": []
+  },
+  "364": {
+    "name": "Sealeo",
+    "type": "ice",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "365": {
+    "name": "Walrein",
+    "type": "ice",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "366": {
+    "name": "Clamperl",
+    "type": "water",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "367": {
+    "name": "Huntail",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "368": {
+    "name": "Gorebyss",
+    "type": "water",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost+",
+    "flags": []
+  },
+  "369": {
+    "name": "Relicanth",
+    "type": "water",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "rock-break+",
+    "flags": []
+  },
+  "370": {
+    "name": "Luvdisc",
+    "type": "water",
+    "base_atk": 30,
+    "max_atk": 50,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "371": {
+    "name": "Bagon",
+    "type": "dragon",
+    "base_atk": 50,
+    "max_atk": 70,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "372": {
+    "name": "Shelgon",
+    "type": "dragon",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "373": {
+    "name": "Salamence",
+    "type": "dragon",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "hitting-streak",
+    "flags": ["mega"]
+  },
+  "374": {
+    "name": "Beldum",
+    "type": "steel",
+    "base_atk": 40,
+    "max_atk": 60,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "375": {
+    "name": "Metang",
+    "type": "steel",
+    "base_atk": 60,
+    "max_atk": 80,
+    "skill": "mega-boost",
+    "flags": []
+  },
+  "376": {
+    "name": "Metagross",
+    "type": "steel",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "hammer-on",
+    "flags": ["mega"]
+  },
+  "377": {
+    "name": "Regirock",
+    "type": "rock",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "last-ditch-effort",
+    "flags": []
+  },
+  "378": {
+    "name": "Regice",
+    "type": "ice",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "last-ditch-effort",
+    "flags": []
+  },
+  "379": {
+    "name": "Registeel",
+    "type": "steel",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "last-ditch-effort",
+    "flags": []
+  },
+  "380": {
+    "name": "Latias",
+    "type": "psychic",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "mega-boost++",
+    "flags": ["mega"]
+  },
+  "381": {
+    "name": "Latios",
+    "type": "psychic",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "mega-boost++",
+    "flags": ["mega"]
+  },
+  "382": {
+    "name": "Kyogre",
+    "type": "water",
+    "base_atk": 90,
+    "max_atk": 110,
+    "skill": "rock-break++",
+    "flags": []
+  },
+  "383": {
+    "name": "Groudon",
+    "type": "ground",
+    "base_atk": 90,
+    "max_atk": 110,
+    "skill": "quake",
+    "flags": []
+  },
+  "384": {
+    "name": "Rayquaza",
+    "type": "dragon",
+    "base_atk": 90,
+    "max_atk": 110,
+    "skill": "dragon-talon",
+    "flags": ["mega"]
+  },
+  "385": {
+    "name": "Jirachi",
+    "type": "steel",
+    "base_atk": 70,
+    "max_atk": 90,
+    "skill": "mega-boost++",
+    "flags": []
+  },
+  "386": {
+    "name": "Deoxys",
+    "type": "psychic",
+    "base_atk": 80,
+    "max_atk": 100,
+    "skill": "psychic-combo",
+    "flags": [],
+    "forms": {
+      "1": {
+        "name": "Deoxys",
+        "form_name": "Attack",
+        "type": "psychic",
+        "base_atk": 90,
+        "max_atk": 110,
+        "skill": "psychic-combo",
+        "flags": []
+      },
+      "2": {
+        "name": "Deoxys",
+        "form_name": "Defense",
+        "type": "psychic",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "barrier-bash++",
+        "flags": []
+      },
+      "3": {
+        "name": "Deoxys",
+        "form_name": "Speed",
+        "type": "psychic",
+        "base_atk": 70,
+        "max_atk": 90,
+        "skill": "swap++",
+        "flags": []
+      }
+    }
   }
+  
+
 }

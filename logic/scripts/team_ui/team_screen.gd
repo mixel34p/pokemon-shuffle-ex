@@ -44,13 +44,10 @@ func _ready():
 	load_pokemon_database()
 	
 	if UserData.all_pokemon.is_empty():
-		for i in range(151):
+		for i in range(386):
 			UserData.add_pokemon(str(i+1), 1)
-	UserData.add_pokemon("1_1", 1)
-	UserData.add_pokemon("503_1", 1)
-	UserData.add_pokemon("503", 1)
-	UserData.add_pokemon("628_1", 1)
-	UserData.add_pokemon("628", 1)
+	UserData.add_pokemon("58_1", 1)
+	UserData.add_pokemon("59_1", 1)
 	var test_data = get_pokemon_data_from_id("1_1")
 	print("=== TEST VER DATOS DE UN POKÉMON ===")
 	print("Nombre: ", test_data.get("name", "?"))
@@ -298,7 +295,7 @@ func create_drag_preview(card: PokemonCard) -> TextureRect:
 	preview.custom_minimum_size = Vector2(50, 50)
 	preview.size = Vector2(50, 50)
 	preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	preview.stretch_mode = TextureRect.STRETCH_SCALE
 	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	preview.modulate = Color(1, 1, 1, 0.7)
 	preview.pivot_offset = preview.size / 2
@@ -704,7 +701,7 @@ func replace_info_panel(card: PokemonCard):
 	var sprite_path = "res://assets/sprites/pokemon/icons/" + card.pokemon_data.get("id", "1") + ".png"
 	$CanvasLayer/InfoPanel/Info/PokemonIcon.texture = load(sprite_path)
 	var parseid = parse_pokemon_id(card.pokemon_data.get("id", "1"))
-	$CanvasLayer/InfoPanel/Info/ID.text = str(parseid["base_id"])
+	$CanvasLayer/InfoPanel/Info/ID.text = id_stringer(parseid["base_id"])
 	$CanvasLayer/InfoPanel/Info/Pokemon.text = full_data["name"]
 	$CanvasLayer/InfoPanel/Info/PokemonIcon/Type/TypeLabel.text = Translator.translate_type(full_data["type"],TranslationServer.get_locale())
 	var type_style = Functions.set_type_color(full_data["type"])
@@ -718,6 +715,20 @@ func replace_info_panel(card: PokemonCard):
 	var level = pokemon_info.get("level", 1)
 	$CanvasLayer/InfoPanel/Info/AttckPanel/int.text = str(calculate_attack_stat(full_data["base_atk"],full_data["max_atk"],level))
 	$CanvasLayer/InfoPanel/Info/SkillPanel/Label.text = full_data["skill"]
+	
+func id_stringer(id):
+	var intid = int(id)
+	if intid < 10:
+		var idstr = ("000"+id)
+		return idstr
+	elif intid >= 10 and intid < 100:
+		var idstr = ("00"+id)
+		return idstr
+	elif intid >= 100 and intid < 1000:
+		var idstr = ("0"+id)
+		return idstr
+	else:
+		return id
 func calculate_attack_stat(base_atk: int, max_atk: int, level: int) -> int:
 	var max_level = 10
 	var atk_per_level = float(max_atk - base_atk) / (max_level - 1)

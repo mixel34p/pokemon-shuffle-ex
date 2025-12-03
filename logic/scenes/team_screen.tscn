@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://upavo37gbyhi" path="res://assets/sprites/ui/search_sign.png" id="3_cblry"]
 [ext_resource type="Texture2D" uid="uid://dgvqi1vm8l16o" path="res://assets/sprites/ui/bag_icon.png" id="4_dkk31"]
 [ext_resource type="Texture2D" uid="uid://buia0f6cxpiqj" path="res://assets/sprites/ui/superefective.png" id="5_6eg1b"]
-[ext_resource type="Texture2D" uid="uid://kjjwn3v0emhv" path="res://assets/sprites/pokemon/icons/40-shiny.png" id="7_j3h4g"]
+[ext_resource type="Texture2D" uid="uid://kjjwn3v0emhv" path="res://logic/data/LevelEDITOR/img/pokemon/40-shiny.png" id="7_j3h4g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3h4g"]
 bg_color = Color(1, 1, 1, 1)
@@ -521,6 +521,7 @@ offset_top = 188.0
 offset_right = 270.0
 offset_bottom = 455.0
 texture = ExtResource("7_j3h4g")
+expand_mode = 1
 
 [node name="LevelLabel" type="Label" parent="CanvasLayer/InfoPanel/Info/PokemonIcon"]
 layout_mode = 0
@@ -585,13 +586,12 @@ vertical_alignment = 1
 
 [node name="Pokemon" type="Label" parent="CanvasLayer/InfoPanel/Info"]
 layout_mode = 0
-offset_left = 76.0
+offset_left = 119.0
 offset_top = 20.0
-offset_right = 386.0
+offset_right = 429.0
 offset_bottom = 91.0
 text = "Unknown "
 label_settings = SubResource("LabelSettings_j3h4g")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Form" type="Label" parent="CanvasLayer/InfoPanel/Info"]
