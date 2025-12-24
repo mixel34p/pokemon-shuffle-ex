@@ -1,0 +1,104 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsrs1yo4w0tsd"]
+
+[ext_resource type="Script" uid="uid://cyn0arf5m5wfl" path="res://logic/scripts/title/initial_warning.gd" id="1_aw35n"]
+[ext_resource type="Texture2D" uid="uid://iej82v3b38oa" path="res://assets/sprites/ui/PkTeamScreenBg.png" id="1_tcf2l"]
+[ext_resource type="Texture2D" uid="uid://d2r8ruswu75t" path="res://assets/sprites/pictures/Pokeball.png" id="2_5wgsn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcf2l"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_5wgsn"]
+Panel/styles/panel = SubResource("StyleBoxFlat_tcf2l")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hol7u"]
+bg_color = Color(1, 0.6666667, 0.69803923, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_tcf2l"]
+Panel/styles/panel = SubResource("StyleBoxFlat_hol7u")
+
+[sub_resource type="LabelSettings" id="LabelSettings_aw35n"]
+font_size = 18
+font_color = Color(0, 0, 0, 1)
+
+[node name="InitialWarning" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aw35n")
+
+[node name="PkTeamScreenBg" type="Sprite2D" parent="."]
+modulate = Color(0.5936752, 0.99999994, 0.8485081, 1)
+position = Vector2(374, 757.50006)
+scale = Vector2(1, 1.5250001)
+texture = ExtResource("1_tcf2l")
+
+[node name="ScoreBack" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.5
+offset_top = -379.0
+offset_right = 315.5
+offset_bottom = 379.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_5wgsn")
+
+[node name="Panel" type="Panel" parent="ScoreBack"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -309.0
+offset_top = -369.0
+offset_right = 310.0
+offset_bottom = 370.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_tcf2l")
+
+[node name="Label" type="Label" parent="ScoreBack/Panel"]
+layout_mode = 0
+offset_left = 4.5
+offset_top = 169.0
+offset_right = 609.5
+offset_bottom = 601.0
+text = "Pokémon ReShuffle project is a fangame made by fans for fans.
+
+The game is still in beta, the game so it can contain bugs or errors.
+
+You can report errors on my discord: mixel34."
+label_settings = SubResource("LabelSettings_aw35n")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Pokeball" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 633.0
+offset_top = 1101.0
+offset_right = 654.0
+offset_bottom = 1122.0
+texture = ExtResource("2_5wgsn")
+expand_mode = 1

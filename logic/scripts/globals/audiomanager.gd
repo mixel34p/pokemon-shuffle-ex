@@ -2,7 +2,7 @@
 extends Node
 
 var sfx := {
-	"accept": preload("res://audio/se/grab_pokemon.wav"),
+	"accept": preload("res://audio/se/accept.wav"),
 	"grab_pokemon": preload("res://audio/se/grab_pokemon.wav"),
 	"release_pokemon": preload("res://audio/se/release_pokemon.wav"),
 	"put_pokemon": preload("res://audio/se/put_pokemon.wav"),
