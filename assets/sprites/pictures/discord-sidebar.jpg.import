@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvdv04uw57msm"
-path="res://.godot/imported/53-66.png-16948173c9ccc507d4ab097d7f6c63a9.ctex"
+uid="uid://cy1ycnvwksbr8"
+path="res://.godot/imported/discord-sidebar.jpg-603eaefcb26feeb88aa9d33125dfdf5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/pokemon/icons/53-66.png"
-dest_files=["res://.godot/imported/53-66.png-16948173c9ccc507d4ab097d7f6c63a9.ctex"]
+source_file="res://assets/sprites/pictures/discord-sidebar.jpg"
+dest_files=["res://.godot/imported/discord-sidebar.jpg-603eaefcb26feeb88aa9d33125dfdf5d.ctex"]
 
 [params]
 
