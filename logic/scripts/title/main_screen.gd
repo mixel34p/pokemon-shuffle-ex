@@ -38,8 +38,13 @@ var spawn_timer = 0.0
 @export var bounce_area: Area2D
 
 func _ready():
+	$".".modulate = Color.BLACK
+	var fadeout_tween = create_tween()
+	fadeout_tween.tween_property($".", "modulate", Color.WHITE,0.4)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	await fadeout_tween.finished
 	randomize()
-	
+	$AudioStreamPlayer.play()
 	# Si no se asignó el area, buscarla en la escena
 	if bounce_area == null:
 		bounce_area = get_node_or_null("BounceArea")

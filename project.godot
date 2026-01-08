@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pokémon-ReShuffle"
-run/main_scene="uid://l832qbrss87b"
+run/main_scene="uid://dsrs1yo4w0tsd"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 

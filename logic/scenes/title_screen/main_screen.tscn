@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4j3mokxtlqim"]
+[gd_scene load_steps=13 format=3 uid="uid://b4j3mokxtlqim"]
 
 [ext_resource type="Texture2D" uid="uid://ctheqvqt8ucnp" path="res://assets/sprites/ui/imagen_2025-12-24_131818450.png" id="1_0i3ax"]
 [ext_resource type="Texture2D" uid="uid://iej82v3b38oa" path="res://assets/sprites/ui/PkTeamScreenBg.png" id="1_nqhhu"]
 [ext_resource type="Script" uid="uid://cvy5tfp1eri78" path="res://logic/scripts/title/main_screen.gd" id="1_sxdhn"]
 [ext_resource type="Texture2D" uid="uid://d3p1mylgjrofq" path="res://assets/sprites/pictures/logo_old.png" id="4_0adv4"]
 [ext_resource type="Texture2D" uid="uid://cy1ycnvwksbr8" path="res://assets/sprites/pictures/discord-sidebar.jpg" id="5_m5qwe"]
+[ext_resource type="AudioStream" uid="uid://bpdbdf6vso27d" path="res://audio/bgm/title.ogg" id="6_dv6ti"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nqhhu"]
 size = Vector2(745, 43)
@@ -18,6 +19,21 @@ outline_size = 8
 font_size = 18
 font_color = Color(0.41598046, 0.41598043, 0.4159804, 1)
 outline_size = 8
+
+[sub_resource type="Animation" id="Animation_m5qwe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LOGO:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(33, 532)]
+}
 
 [sub_resource type="Animation" id="Animation_0adv4"]
 resource_name = "logo_anim"
@@ -35,21 +51,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(33, 532), Vector2(33, 498.635), Vector2(33, 532)]
-}
-
-[sub_resource type="Animation" id="Animation_m5qwe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LOGO:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(33, 532)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m5qwe"]
@@ -201,3 +202,6 @@ offset_bottom = 1434.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_m5qwe")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_dv6ti")

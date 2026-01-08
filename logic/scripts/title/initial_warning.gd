@@ -41,7 +41,9 @@ func _continue():
 	var fadeout_tween = create_tween()
 	fadeout_tween.tween_property($".", "modulate", Color.BLACK,0.4)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
+	await fadeout_tween.finished
+	await get_tree().create_timer(1.0).timeout
+	get_tree().change_scene_to_file("res://logic/scenes/title_screen/main_screen.tscn")
 
 func _on_button_button_down() -> void:
 	_continue() # Replace with function body.
