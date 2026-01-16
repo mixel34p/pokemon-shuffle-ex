@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Pradera Verde",
+    "from_level": 1,
+    "to_level": 20,
+    "background": "res://bg/world1.png",
+    "music": "res://music/world1.ogg"
+  },
+  {
+    "id": 2,
+    "name": "Colina Fuego",
+    "from_level": 21,
+    "to_level": 40,
+    "background": "res://bg/world2.png",
+    "music": "res://music/world2.ogg"
+  }
+]

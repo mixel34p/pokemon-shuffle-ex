@@ -87,7 +87,7 @@ var intro_playing = true
 var turn_count = 0
 var countdown = 0
 var countdown_start = 0
-var level = "ES1"
+var level
 @onready var grid_container = $GridContainer
 @onready var moves_label = $UI/TurnsLeftBack/MovesLeft/MovesLabel
 @onready var hp_label = $UI/HPLabel
@@ -99,19 +99,39 @@ var level = "ES1"
 
 
 func _ready():
+	level = Datasharing.current_level
 	var team_data = UserData.obtain_full_team()
 	team = [
-		{"id": str(team_data[0]["id"]), "level": team_data[0]["nivel"]},      # Bulbasaur forma 1
-		{"id": str(team_data[1]["id"]), "level": team_data[1]["nivel"]},        # Charmander
-		{"id": str(team_data[2]["id"]), "level": team_data[2]["nivel"]},        # Squirtle
-		{"id": str(team_data[3]["id"]), "level": team_data[3]["nivel"]}         # Pikachu
+		{"id": str(team_data[0]["id"]), "level": team_data[0]["nivel"]},
+		{"id": str(team_data[1]["id"]), "level": team_data[1]["nivel"]},
+		{"id": str(team_data[2]["id"]), "level": team_data[2]["nivel"]},
+		{"id": str(team_data[3]["id"]), "level": team_data[3]["nivel"]}
 	]
-	print(team)
-	for i in range(4):
-		pass
-	# 🎬 OCULTAR TODO AL INICIO
-	grid_ui.modulate.a = 0.0  # Grid invisible
-	$UI/TurnsLeftBack.modulate.a = 0.0  # Panel de movimientos
+	
+	# 🔥 CARGAR DATOS DEL NIVEL PRIMERO
+	var levels_data = LevelDatabase.load_levels_from_json()
+	var level_key = str(level)
+	
+	if levels_data.has(level_key):
+		var level_data = levels_data[level_key]
+	
+	# 🔥 ASIGNAR DATOS DEL ENEMIGO DESDE EL JSON CON CONVERSIÓN A INT
+		if level_data.has("enemy"):
+			var enemy_data = level_data["enemy"]
+			foe = {
+			"id": str(enemy_data.get("id", "1")),  # Forzar a string
+			"hp": int(enemy_data.get("hp", 5000)),  # Convertir a int
+			"max_hp": int(enemy_data.get("hp", 5000)),  # Guardar max_hp también
+			"turns_for_interference": int(enemy_data.get("turns_for_interference", 3)),
+			"disruption_patterns": enemy_data.get("disruption_patterns", [])
+			}
+	
+	# Asignar moves desde el JSON
+		if level_data.has("moves"):
+			moves_left = int(level_data["moves"])  # Convertir a int
+	# RESTO DEL CÓDIGO ORIGINAL...
+	grid_ui.modulate.a = 0.0
+	$UI/TurnsLeftBack.modulate.a = 0.0
 	$UI/StageBack.modulate.a = 0.0  # Panel de fase
 	$UI/ScoreBack.modulate.a = 0.0
 	$UI/Cooldown.modulate.a = 0.0  # Panel de cooldown
@@ -134,7 +154,6 @@ func _ready():
 	countdown = countdown_start
 	
 	## Cargar configuración de nivel
-	var levels_data = LevelDatabase.load_levels_from_json()
 	var config = LevelDatabase.get_level_config_from_json(str(level), levels_data)
 	initial_grid_config = config
 	

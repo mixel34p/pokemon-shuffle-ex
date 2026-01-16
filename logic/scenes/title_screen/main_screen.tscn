@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4j3mokxtlqim"]
+[gd_scene load_steps=19 format=3 uid="uid://b4j3mokxtlqim"]
 
 [ext_resource type="Texture2D" uid="uid://ctheqvqt8ucnp" path="res://assets/sprites/ui/imagen_2025-12-24_131818450.png" id="1_0i3ax"]
 [ext_resource type="Texture2D" uid="uid://iej82v3b38oa" path="res://assets/sprites/ui/PkTeamScreenBg.png" id="1_nqhhu"]
@@ -58,6 +58,23 @@ _data = {
 &"RESET": SubResource("Animation_m5qwe"),
 &"logo_anim": SubResource("Animation_0adv4")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sbtfa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_04udy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6dylo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8dc6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jnu84"]
+
+[sub_resource type="Theme" id="Theme_dv6ti"]
+Button/styles/disabled = SubResource("StyleBoxEmpty_sbtfa")
+Button/styles/focus = SubResource("StyleBoxEmpty_04udy")
+Button/styles/hover = SubResource("StyleBoxEmpty_6dylo")
+Button/styles/normal = SubResource("StyleBoxEmpty_f8dc6")
+Button/styles/pressed = SubResource("StyleBoxEmpty_jnu84")
 
 [node name="main_screen" type="Control" node_paths=PackedStringArray("bounce_area")]
 layout_mode = 3
@@ -178,7 +195,7 @@ layout_mode = 0
 offset_left = 33.0
 offset_top = 532.0
 offset_right = 685.0
-offset_bottom = 865.9996
+offset_bottom = 832.9996
 texture = ExtResource("4_0adv4")
 expand_mode = 1
 
@@ -196,12 +213,22 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -4.0
-offset_top = 1232.0
+offset_top = 1203.0
 offset_right = 679.0
-offset_bottom = 1434.0
+offset_bottom = 1405.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_m5qwe")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_dv6ti")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = -66.0
+offset_top = -52.0
+offset_right = 802.0
+offset_bottom = 1546.0
+theme = SubResource("Theme_dv6ti")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

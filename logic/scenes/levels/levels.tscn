@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://s0uret144x6o"]
+
+[ext_resource type="Texture2D" uid="uid://cyk2543jvu5yr" path="res://assets/sprites/backgrounds/map/w1-2.png" id="1_2x1xk"]
+[ext_resource type="Script" uid="uid://bsgk4145b6brs" path="res://logic/scripts/levels/levels.gd" id="1_pom38"]
+[ext_resource type="PackedScene" uid="uid://o74hfue6md18" path="res://logic/scenes/levels/level_node.tscn" id="2_808kr"]
+[ext_resource type="Texture2D" uid="uid://p87yk5m4751w" path="res://assets/sprites/backgrounds/map/w1-1.png" id="2_pom38"]
+[ext_resource type="Texture2D" uid="uid://jlew5tgo101l" path="res://assets/sprites/backgrounds/map/w1-3.png" id="5_e80xq"]
+
+[node name="Levels" type="Node2D"]
+script = ExtResource("1_pom38")
+level_scene = ExtResource("2_808kr")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="bg-1" type="Sprite2D" parent="Background"]
+position = Vector2(359.99997, 1161)
+texture = ExtResource("1_2x1xk")
+
+[node name="bg-2" type="Sprite2D" parent="Background"]
+position = Vector2(360, 138)
+texture = ExtResource("2_pom38")
+
+[node name="bg-3" type="Sprite2D" parent="Background"]
+position = Vector2(360, -886)
+texture = ExtResource("5_e80xq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(361, 760)
+position_smoothing_enabled = true
+
+[node name="LevelNodes" type="Node2D" parent="."]

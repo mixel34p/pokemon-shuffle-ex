@@ -21,6 +21,7 @@ Audiomanager="*res://logic/scripts/globals/audiomanager.gd"
 Functions="*res://logic/scripts/globals/functions.gd"
 Translator="*res://logic/scripts/globals/translator.gd"
 UserData="*res://logic/scripts/globals/user_data.gd"
+Datasharing="*res://logic/scripts/globals/datasharing.gd"
 
 [display]
 

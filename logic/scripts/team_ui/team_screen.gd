@@ -608,12 +608,12 @@ func unhighlight_slot(slot: Control):
 func _on_back_pressed():
 	"""Vuelve a la escena anterior"""
 	UserData.guardar_datos()
-	get_tree().change_scene_to_file("res://logic/scenes/main.tscn")
+	get_tree().change_scene_to_file("res://logic/scenes/levels/levels.tscn")
 
 func _on_back_button_button_down() -> void:
 	"""Vuelve a la escena anterior"""
 	UserData.guardar_datos()
-	get_tree().change_scene_to_file("res://logic/scenes/main.tscn")
+	get_tree().change_scene_to_file("res://logic/scenes/levels/levels.tscn")
 
 # ==================== DATOS POKÉMON ====================
 

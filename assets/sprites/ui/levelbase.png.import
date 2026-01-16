@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cur4le8g6yy5m"
-path="res://.godot/imported/77-f2336.png-6588611d63cebb30ea8ef079cb8c403d.ctex"
+uid="uid://dpi5h5fvln6wk"
+path="res://.godot/imported/levelbase.png-ff912408146adb2471170b15e1febe39.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/pokemon/icons/77-f2336.png"
-dest_files=["res://.godot/imported/77-f2336.png-6588611d63cebb30ea8ef079cb8c403d.ctex"]
+source_file="res://assets/sprites/ui/levelbase.png"
+dest_files=["res://.godot/imported/levelbase.png-ff912408146adb2471170b15e1febe39.ctex"]
 
 [params]
 

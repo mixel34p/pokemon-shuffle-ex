@@ -179,3 +179,7 @@ class ShadowNode extends Node2D:
 			
 			# Dibujar sombra elíptica
 			draw_circle(shadow_pos, shadow_size, Color(0, 0, 0, shadow_alpha))
+
+
+func _on_button_button_down() -> void:
+	get_tree().change_scene_to_file("res://logic/scenes/team_screen.tscn") # Replace with function body.
