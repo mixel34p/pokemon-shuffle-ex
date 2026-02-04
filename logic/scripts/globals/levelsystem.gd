@@ -1,6 +1,5 @@
 # LevelDatabase.gd
 # Base de datos de niveles escalable
-# Coloca este archivo en res://logic/data/LevelDatabase.gd
 
 extends Node
 class_name LevelDatabase
